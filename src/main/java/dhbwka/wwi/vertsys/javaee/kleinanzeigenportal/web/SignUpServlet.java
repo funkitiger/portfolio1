@@ -41,7 +41,7 @@ public class SignUpServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Anfrage an dazugehÃ¶rige JSP weiterleiten
+        // Anfrage an dazugehörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
         dispatcher.forward(request, response);
         
@@ -67,13 +67,13 @@ public class SignUpServlet extends HttpServlet {
         String email = request.getParameter("email");
 
         
-        // Eingaben prÃ¼fen
+        // Eingaben prüfen
         Benutzer user = new Benutzer(username, password2, username, password2, 0, password2, username, password2);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden PasswÃ¶rter stimmen nicht Ã¼berein.");
+            errors.add("Die beiden Passwörter stimmen nicht Ã¼berein.");
         }
         
         // Neuen Benutzer anlegen
@@ -85,7 +85,7 @@ public class SignUpServlet extends HttpServlet {
             }
         }
         
-        // Weiter zur nÃ¤chsten Seite
+        // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
             request.login(username, password1);

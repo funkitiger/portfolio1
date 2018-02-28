@@ -72,7 +72,7 @@
                         <input type="text" name="vorNachname" value="${signup_form.values["vorNachname"][0]}">
                     </div>    
                     <label for="strasseHausnr">
-                        StraÃŸe und Hausnummer:
+                        Straße und Hausnummer:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
