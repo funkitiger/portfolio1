@@ -93,7 +93,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="telefon" value="${signup_form.values["signup_Telefon"][0]}">
+                        <input type="text" name="telefonnr" value="${signup_form.values["signup_Telefonnr"][0]}">
                         <input type="text" name="email" value="${signup_form.values["signup_Email"][0]}">
                     </div>                    
 

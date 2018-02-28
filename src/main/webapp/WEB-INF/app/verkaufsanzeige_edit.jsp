@@ -47,13 +47,67 @@
                     <select name="category">
 
                         <c:forEach items="${kategorien}" var="category">
-                            <option value="${kategorie.id}" ${task_form.values["kategorie"][0] == category.id ? 'selected' : ''}>
+                            <option value="${kategorie.id}" ${verkaufsanzeige_form.values["kategorie"][0] == category.id ? 'selected' : ''}>
                                 <c:out value="${kategorie.name}" />
                             </option>
                         </c:forEach>
                     </select>
                 </div>
-
+                <label for="angebotArt">Art des Angebots:
+                    <span class="required">*</span>
+                </label>
+                <div class="side-by-side">
+                    <select name="angebotArt">
+                        <c:forEach items="${angebotArten}" var="category">
+                            <option value="${angebotArt.id}" ${verkaufsanzeige_form.values["angebotArt"][0] == angebotArt.id ? 'selected' : ''}>
+                                <c:out value="${angebotArt.name}" />
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <label for="bezeichnung">
+                    Bezeichnung:
+                    <span class="required">*</span>
+                </label>
+                <div class="side-by-side">
+                    <input type="text" name="bezeichnung" value="${verkaufsanzeige_form.values["bezeichnung"][0]}">
+                </div>
+                <label for="beschreibung">
+                    Beschreibung:
+                </label>
+                <div class="side-by-side">
+                    <textarea name="beschreibung"><c:out value="${verkaufsanzeige_form.values['beschreibung'][0]}"/></textarea>
+                </div>
+                <label for="preisArt">Preis:</label>
+                <div class="side-by-side">
+                    <select name="preisArt">
+                        <c:forEach items="${preisArten}" var="preisArt">
+                            <option value="${preisArt.id}" ${verkaufsanzeige_form.values["preisArt"][0] == preisArt.id ? 'selected' : ''}>
+                                <c:out value="${preisArt.name}" />
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <input type="text" name="preis" value="${verkaufsanzeige_form.values["preis"][0]}">
+                </div>
+                <label for="erstellungsdatum">
+                    Angelegt am:
+                </label>
+                <div class="side-by-side">
+                    ${verkaufsanzeige_form.values['erstellungsdatum'][0]}
+                </div>
+                <label for="anbieter">
+                    Anbieter:
+                </label>
+                <div class="side-by-side">
+                    ${verkaufsanzeige_form.values['anbieter.vorNachname'][0]} <br />
+                    ${verkaufsanzeige_form.values['anbieter.strasseHausnr'][0]} <br />
+                    ${verkaufsanzeige_form.values['anbieter.plz'][0]} ${verkaufsanzeige_form.values['anbieter.ort'][0]} <br />
+                    ${verkaufsanzeige_form.values['anbieter.telefonnr'][0]} <br/> 
+                    ${verkaufsanzeige_form.values['anbieter.email'][0]} 
+                </div>
+                
+                
+                
                 <label for="task_due_date">
                     Fällig am:
                     <span class="required">*</span>
@@ -77,20 +131,9 @@
                     </select>
                 </div>
 
-                <label for="task_short_text">
-                    Bezeichnung:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side">
-                    <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}">
-                </div>
 
-                <label for="task_long_text">
-                    Beschreibung:
-                </label>
-                <div class="side-by-side">
-                    <textarea name="task_long_text"><c:out value="${task_form.values['task_long_text'][0]}"/></textarea>
-                </div>
+
+
 
                 <%-- Button zum Abschicken --%>
                 <div class="side-by-side">
@@ -111,7 +154,7 @@
                 <ul class="errors">
                     <c:forEach items="${task_form.errors}" var="error">
                         <li>${error}</li>
-                    </c:forEach>
+                        </c:forEach>
                 </ul>
             </c:if>
         </form>
