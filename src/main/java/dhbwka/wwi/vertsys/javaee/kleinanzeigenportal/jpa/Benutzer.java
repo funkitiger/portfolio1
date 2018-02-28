@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 Dennis Schulmeister-Zimolong
+ * Copyright Â© 2018 Dennis Schulmeister-Zimolong
  * 
  * E-Mail: dhbw@windows3.de
  * Webseite: https://www.wpvs.de/
@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * Datenbankklasse für einen Benutzer.
+ * Datenbankklasse fÃ¼r einen Benutzer.
  */
 @Data
 @Entity
@@ -44,7 +44,7 @@ public class Benutzer implements Serializable {
 
     @Id
     @Column(name = "USERNAME", length = 64)
-    @Size(min = 5, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
+    @Size(min = 5, max = 64, message = "Der Benutzername muss zwischen fÃ¼nf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private String benutzername;
     
@@ -58,18 +58,19 @@ public class Benutzer implements Serializable {
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     private String passwordHash;
-    
+    @NotNull(message = "Der Name darf nicht leer sein.")
     private String vorNachname;
-    
+    @NotNull(message = "Die StraÃŸe und Hausnunmmer darf nicht leer sein.")
     private String strasseHnr;
-    
+    @Size(max = 99999, min = 10000)
+    @NotNull(message = "Die Postleitzahl darf muss einen Wert zwischen 10000 und 99999 sein.")
     private int plz;
-    
+    @NotNull(message = "Der Ort darf nicht leer sein.")
     private String ort;
     
     @Pattern(regexp = "^\\\\w+@\\\\w+\\\\..{2,3}(.{2,3})?$")
     private String email;
-    
+    @NotNull(message = "Die Telefonnummer darf nicht leer sein.")
     private String telefonnr; 
 
     @ElementCollection
@@ -102,7 +103,7 @@ public class Benutzer implements Serializable {
     
     //</editor-fold>
     
-  //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
+    //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prÃ¼fen">
     /**
      * Berechnet der Hash-Wert zu einem Passwort.
      *
@@ -128,13 +129,13 @@ public class Benutzer implements Serializable {
     }
 
     /**
-     * Berechnet einen Hashwert aus dem übergebenen Passwort und legt ihn im
+     * Berechnet einen Hashwert aus dem Ã¼bergebenen Passwort und legt ihn im
      * Feld passwordHash ab. Somit wird das Passwort niemals als Klartext
  gespeichert.
  
  Gleichzeitig wird das Passwort im nicht gespeicherten Feld passwort
- abgelegt, um durch die Bean Validation Annotationen überprüft werden
- zu können.
+ abgelegt, um durch die Bean Validation Annotationen Ã¼berprÃ¼ft werden
+ zu kÃ¶nnen.
      *
      * @param password Neues Passwort
      */
@@ -144,7 +145,7 @@ public class Benutzer implements Serializable {
     }
 
     /**
-     * Nur für die Validierung bei einer Passwortänderung!
+     * Nur fÃ¼r die Validierung bei einer PasswortÃ¤nderung!
      * @return Neues, beim Speichern gesetztes Passwort
      */
     public Password getPassword() {
@@ -152,9 +153,9 @@ public class Benutzer implements Serializable {
     }
     
     /**
-     * Prüft, ob das übergebene Passwort korrekt ist.
+     * PrÃ¼ft, ob das Ã¼bergebene Passwort korrekt ist.
      *
-     * @param password Zu prüfendes Passwort
+     * @param password Zu prÃ¼fendes Passwort
      * @return true wenn das Passwort stimmt sonst false
      */
     public boolean checkPassword(String password) {
@@ -164,7 +165,7 @@ public class Benutzer implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Zuordnung zu Benutzergruppen">
     /**
-     * @return Eine unveränderliche Liste aller Benutzergruppen
+     * @return Eine unverÃ¤nderliche Liste aller Benutzergruppen
      */
     public List<String> getGroups() {
         List<String> groupsCopy = new ArrayList<>();
@@ -177,7 +178,7 @@ public class Benutzer implements Serializable {
     }
 
     /**
-     * Fügt den Benutzer einer weiteren Benutzergruppe hinzu.
+     * FÃ¼gt den Benutzer einer weiteren Benutzergruppe hinzu.
      *
      * @param groupname Name der Benutzergruppe
      */
@@ -188,7 +189,7 @@ public class Benutzer implements Serializable {
     }
 
     /**
-     * Entfernt den Benutzer aus der übergebenen Benutzergruppe.
+     * Entfernt den Benutzer aus der Ã¼bergebenen Benutzergruppe.
      *
      * @param groupname Name der Benutzergruppe
      */
