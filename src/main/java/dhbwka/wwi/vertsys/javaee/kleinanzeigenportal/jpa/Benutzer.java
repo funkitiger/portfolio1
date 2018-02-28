@@ -46,7 +46,7 @@ public class Benutzer implements Serializable {
     @Column(name = "USERNAME", length = 64)
     @Size(min = 5, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
-    private String username;
+    private String benutzername;
     
     public class Password {
         @Size(min = 6, max = 64, message = "Das Passwort muss zwischen sechs und 64 Zeichen lang sein.")
@@ -61,20 +61,16 @@ public class Benutzer implements Serializable {
     
     private String vorNachname;
     
-    private String strasse;
-    
-    private int hausnr;
+    private String strasseHnr;
     
     private int plz;
     
     private String ort;
+    
     @Pattern(regexp = "^\\\\w+@\\\\w+\\\\..{2,3}(.{2,3})?$")
     private String email;
     
     private String telefonnr; 
-    
-    
-    
 
     @ElementCollection
     @CollectionTable(
@@ -85,14 +81,14 @@ public class Benutzer implements Serializable {
     List<String> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    List<Verkaufsanzeige> tasks = new ArrayList<>();
+    List<Verkaufsanzeige> anzeige = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Benutzer() {
     }
 
-    public Benutzer(String username, String password) {
-        this.username = username;
+    public Benutzer(String benutzername, String password) {
+        this.benutzername = benutzername;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);
     }

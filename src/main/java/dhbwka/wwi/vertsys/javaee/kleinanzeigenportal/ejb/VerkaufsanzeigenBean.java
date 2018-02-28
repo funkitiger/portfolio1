@@ -11,7 +11,6 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.TaskStatus;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -24,9 +23,9 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 @RolesAllowed("todo-app-user")
-public class TaskBean extends EntityBean<Verkaufsanzeige, Long> { 
+public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> { 
    
-    public TaskBean() {
+    public VerkaufsanzeigenBean() {
         super(Verkaufsanzeige.class);
     }
     
@@ -49,10 +48,9 @@ public class TaskBean extends EntityBean<Verkaufsanzeige, Long> {
      * 
      * @param search In der Kurzbeschreibung enthaltener Text (optional)
      * @param category Kategorie (optional)
-     * @param status Status (optional)
      * @return Liste mit den gefundenen Aufgaben
      */
-    public List<Verkaufsanzeige> search(String search, Kategorie category, TaskStatus status) {
+    public List<Verkaufsanzeige> search(String search, Kategorie category) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         
@@ -61,22 +59,17 @@ public class TaskBean extends EntityBean<Verkaufsanzeige, Long> {
         Root<Verkaufsanzeige> from = query.from(Verkaufsanzeige.class);
         query.select(from);
 
-        // ORDER BY dueDate, dueTime
-        query.orderBy(cb.asc(from.get("dueDate")), cb.asc(from.get("dueTime")));
+        // ORDER BY erstelldatum, erstellungszeit
+        query.orderBy(cb.asc(from.get("erstelldatum")), cb.asc(from.get("erstellungszeit")));
         
         // WHERE t.shortText LIKE :search
         if (search != null && !search.trim().isEmpty()) {
-            query.where(cb.like(from.get("shortText"), "%" + search + "%"));
+            query.where(cb.like(from.get("bezeichnung"), "%" + search + "%"));
         }
         
         // WHERE t.category = :category
         if (category != null) {
-            query.where(cb.equal(from.get("category"), category));
-        }
-        
-        // WHERE t.status = :status
-        if (status != null) {
-            query.where(cb.equal(from.get("status"), status));
+            query.where(cb.equal(from.get("kategorie"), category));
         }
         
         return em.createQuery(query).getResultList();

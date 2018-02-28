@@ -10,10 +10,9 @@
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.VerkaufsanzeigenBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.TaskStatus;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -34,7 +33,7 @@ public class TaskListServlet extends HttpServlet {
     private CategoryBean categoryBean;
     
     @EJB
-    private TaskBean taskBean;
+    private VerkaufsanzeigenBean taskBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,16 +41,13 @@ public class TaskListServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
-        request.setAttribute("statuses", TaskStatus.values());
 
         // Suchparameter aus der URL auslesen
         String searchText = request.getParameter("search_text");
         String searchCategory = request.getParameter("search_category");
-        String searchStatus = request.getParameter("search_status");
 
         // Anzuzeigende Aufgaben suchen
         Kategorie category = null;
-        TaskStatus status = null;
 
         if (searchCategory != null) {
             try {
@@ -61,16 +57,7 @@ public class TaskListServlet extends HttpServlet {
             }
         }
 
-        if (searchStatus != null) {
-            try {
-                status = TaskStatus.valueOf(searchStatus);
-            } catch (IllegalArgumentException ex) {
-                status = null;
-            }
-
-        }
-
-        List<Verkaufsanzeige> tasks = this.taskBean.search(searchText, category, status);
+        List<Verkaufsanzeige> tasks = this.taskBean.search(searchText, category);
         request.setAttribute("tasks", tasks);
 
         // Anfrage an die JSP weiterleiten
