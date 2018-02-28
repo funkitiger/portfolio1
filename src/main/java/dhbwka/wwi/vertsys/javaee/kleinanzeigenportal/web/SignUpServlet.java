@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet für die Registrierungsseite. Hier kann sich ein neuer Benutzer
- * registrieren. Anschließend wird der auf die Startseite weitergeleitet.
+ * Servlet fÃ¼r die Registrierungsseite. Hier kann sich ein neuer Benutzer
+ * registrieren. AnschlieÃŸend wird der auf die Startseite weitergeleitet.
  */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
@@ -73,7 +73,7 @@ public class SignUpServlet extends HttpServlet {
         this.validationBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden Passwörter stimmen nicht überein.");
+            errors.add("Die beiden Passwörter stimmen nicht Ã¼berein.");
         }
         
         // Neuen Benutzer anlegen
