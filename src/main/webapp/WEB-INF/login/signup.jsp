@@ -1,5 +1,5 @@
 <%-- 
-    Copyright © 2018 Dennis Schulmeister-Zimolong
+    Copyright Â© 2018 Dennis Schulmeister-Zimolong
 
     E-Mail: dhbw@windows3.de
     Webseite: https://www.wpvs.de/
@@ -69,22 +69,22 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="vorNachname" value="${signup_form.values["signup_VorNachname"][0]}">
+                        <input type="text" name="vorNachname" value="${signup_form.values["vorNachname"][0]}">
                     </div>    
                     <label for="strasseHausnr">
-                        Straße und Hausnummer:
+                        StraÃŸe und Hausnummer:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="strasseHausnr" value="${signup_form.values["signup_VorNachname"][0]}">
+                        <input type="text" name="strasseHausnr" value="${signup_form.values["strasseHausnr"][0]}">
                     </div>  
                     <label for="plz">
                         Postleitzahl und Ort:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="plz" value="${signup_form.values["signup_PLZ"][0]}">
-                        <input type="text" name="ort" value="${signup_form.values["signup_Ort"][0]}">
+                        <input type="text" name="plz" value="${signup_form.values["plz"][0]}">
+                        <input type="text" name="ort" value="${signup_form.values["ort"][0]}">
                     </div>
                     
                     <h2>Kontaktdaten</h2>
@@ -93,8 +93,8 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="telefonnr" value="${signup_form.values["signup_Telefonnr"][0]}">
-                        <input type="text" name="email" value="${signup_form.values["signup_Email"][0]}">
+                        <input type="text" name="telefonnr" value="${signup_form.values["telefonnr"][0]}">
+                        <input type="text" name="email" value="${signup_form.values["email"][0]}">
                     </div>                    
 
                     <%-- Button zum Abschicken --%>
