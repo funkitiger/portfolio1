@@ -41,7 +41,7 @@ public class SignUpServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Anfrage an dazugehÃ¶rige JSP weiterleiten
+        // Anfrage an dazugehörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
         dispatcher.forward(request, response);
         
@@ -62,7 +62,7 @@ public class SignUpServlet extends HttpServlet {
         String password2 = request.getParameter("signup_password2");
         String vorNachname = request.getParameter("vorNachname");
         String strasseHnr = request.getParameter("strasseHausNr"); //TODO: Exception abfangen?
-        int plz = Integer.parseInt(request.getParameter("plz"));
+        String plz = request.getParameter("plz");
         String telefonNr = request.getParameter("telefonnr");
         String email = request.getParameter("email");
         String ort = request.getParameter("ort");
@@ -74,7 +74,7 @@ public class SignUpServlet extends HttpServlet {
         this.validationBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden PasswÃ¶rter stimmen nicht Ã¼berein.");
+            errors.add("Die beiden Passwörter stimmen nicht Ã¼berein.");
         }
         
         // Neuen Benutzer anlegen
@@ -86,7 +86,7 @@ public class SignUpServlet extends HttpServlet {
             }
         }
         
-        // Weiter zur nÃ¤chsten Seite
+        // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
             request.login(username, password1);
