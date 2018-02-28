@@ -38,6 +38,7 @@
                     <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                     <%-- Eingabefelder --%>
+                    <h2>Logindaten</h2>
                     <label for="signup_username">
                         Benutzername:
                         <span class="required">*</span>
@@ -61,6 +62,40 @@
                     <div class="side-by-side">
                         <input type="password" name="signup_password2" value="${signup_form.values["signup_password2"][0]}">
                     </div>
+                    
+                    <h2>Anschrift</h2>
+                    <label for="vorNachname">
+                        Vor- und Nachname:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="vorNachname" value="${signup_form.values["signup_VorNachname"][0]}">
+                    </div>    
+                    <label for="strasseHausnr">
+                        Straße und Hausnummer:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="strasseHausnr" value="${signup_form.values["signup_VorNachname"][0]}">
+                    </div>  
+                    <label for="plz">
+                        Postleitzahl und Ort:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="plz" value="${signup_form.values["signup_PLZ"][0]}">
+                        <input type="text" name="ort" value="${signup_form.values["signup_Ort"][0]}">
+                    </div>
+                    
+                    <h2>Kontaktdaten</h2>
+                    <label for="plz">
+                        Telefon und E-Mail:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="telefon" value="${signup_form.values["signup_Telefon"][0]}">
+                        <input type="text" name="email" value="${signup_form.values["signup_Email"][0]}">
+                    </div>                    
 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">

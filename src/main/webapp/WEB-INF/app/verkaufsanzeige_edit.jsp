@@ -17,10 +17,10 @@
     <jsp:attribute name="title">
         <c:choose>
             <c:when test="${edit}">
-                Aufgabe bearbeiten
+                Verkaufsanzeige bearbeiten
             </c:when>
             <c:otherwise>
-                Aufgabe anlegen
+                Verkaufsanzeige anlegen
             </c:otherwise>
         </c:choose>
     </jsp:attribute>
@@ -42,19 +42,13 @@
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                 <%-- Eingabefelder --%>
-                <label for="task_owner">Eigentümer:</label>
-                <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
-                </div>
-
                 <label for="task_category">Kategorie:</label>
                 <div class="side-by-side">
-                    <select name="task_category">
-                        <option value="">Keine Kategorie</option>
+                    <select name="category">
 
-                        <c:forEach items="${categories}" var="category">
-                            <option value="${category.id}" ${task_form.values["task_category"][0] == category.id ? 'selected' : ''}>
-                                <c:out value="${category.name}" />
+                        <c:forEach items="${kategorien}" var="category">
+                            <option value="${kategorie.id}" ${task_form.values["kategorie"][0] == category.id ? 'selected' : ''}>
+                                <c:out value="${kategorie.name}" />
                             </option>
                         </c:forEach>
                     </select>

@@ -70,37 +70,43 @@
                 </p>
             </c:when>
             <c:otherwise>
-                <jsp:useBean id="utils" class="dhbwka.wwi.vertsys.javaee.jtodo.web.WebUtils"/>
-                
+                <jsp:useBean id="utils" class="dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web.WebUtils"/>                
                 <table>
                     <thead>
                         <tr>
                             <th>Bezeichnung</th>
                             <th>Kategorie</th>
-                            <th>Eigentümer</th>
-                            <th>Status</th>
-                            <th>Fällig am</th>
+                            <th>Benutzer</th>
+                            <th>Angebotstyp</th>
+                            <th>Preis</th>
+                            <th>Preistyp</th>
+                            <th>Datum</th>
                         </tr>
                     </thead>
-                    <c:forEach items="${tasks}" var="task">
+                    <c:forEach items="${verkaufsanzeige}" var="task">
                         <tr>
                             <td>
-                                <a href="<c:url value="/app/task/${task.id}/"/>">
-                                    <c:out value="${task.shortText}"/>
+                                <a href="<c:url value="/app/task/${verkaufsanzeige.id}/"/>">
+                                    <c:out value="${verkaufsanzeige.bezeichnung}"/>
                                 </a>
                             </td>
                             <td>
-                                <c:out value="${task.category.name}"/>
+                                <c:out value="${verkaufsanzeige.kategorie.name}"/>
                             </td>
                             <td>
-                                <c:out value="${task.owner.username}"/>
+                                <c:out value="${verkaufsanzeige.benutzer.vorNachname}"/>
                             </td>
                             <td>
-                                <c:out value="${task.status.label}"/>
+                                <c:out value="${verkaufsanzeige.angebotArt}"/>
                             </td>
                             <td>
-                                <c:out value="${utils.formatDate(task.dueDate)}"/>
-                                <c:out value="${utils.formatTime(task.dueTime)}"/>
+                                <c:out value="${verkaufsanzeige.preis}"/>
+                            </td>
+                            <td>
+                                <c:out value="${verkaufsanzeige.preisArt}"/>
+                            </td>
+                            <td>
+                                <c:out value="${utils.formatDate(verkaufsanzeige.erstellungsdatum)}" />
                             </td>
                         </tr>
                     </c:forEach>
