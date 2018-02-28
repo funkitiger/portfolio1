@@ -12,7 +12,7 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeigen;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.TaskStatus;
 import java.io.IOException;
 import java.util.List;
@@ -70,7 +70,7 @@ public class TaskListServlet extends HttpServlet {
 
         }
 
-        List<Verkaufsanzeigen> tasks = this.taskBean.search(searchText, category, status);
+        List<Verkaufsanzeige> tasks = this.taskBean.search(searchText, category, status);
         request.setAttribute("tasks", tasks);
 
         // Anfrage an die JSP weiterleiten

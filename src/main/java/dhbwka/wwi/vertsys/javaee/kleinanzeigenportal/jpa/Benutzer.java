@@ -28,11 +28,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * Datenbankklasse für einen Benutzer.
  */
+@Data
 @Entity
 @Table(name = "JTODO_USER")
 public class Benutzer implements Serializable {
@@ -55,6 +58,23 @@ public class Benutzer implements Serializable {
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     private String passwordHash;
+    
+    private String vorNachname;
+    
+    private String strasse;
+    
+    private int hausnr;
+    
+    private int plz;
+    
+    private String ort;
+    @Pattern(regexp = "^\\\\w+@\\\\w+\\\\..{2,3}(.{2,3})?$")
+    private String email;
+    
+    private String telefonnr; 
+    
+    
+    
 
     @ElementCollection
     @CollectionTable(
@@ -65,7 +85,7 @@ public class Benutzer implements Serializable {
     List<String> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    List<Verkaufsanzeigen> tasks = new ArrayList<>();
+    List<Verkaufsanzeige> tasks = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Benutzer() {
@@ -77,26 +97,8 @@ public class Benutzer implements Serializable {
         this.passwordHash = this.hashPassword(password);
     }
     //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String id) {
-        this.username = id;
-    }
-
-    public List<Verkaufsanzeigen> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Verkaufsanzeigen> tasks) {
-        this.tasks = tasks;
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
+    
+  //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
     /**
      * Berechnet der Hash-Wert zu einem Passwort.
      *

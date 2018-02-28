@@ -13,7 +13,7 @@ import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeigen;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.TaskStatus;
 import java.io.IOException;
 import java.sql.Date;
@@ -59,7 +59,7 @@ public class TaskEditServlet extends HttpServlet {
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
 
-        Verkaufsanzeigen task = this.getRequestedTask(request);
+        Verkaufsanzeige task = this.getRequestedTask(request);
         request.setAttribute("edit", task.getId() != 0);
                                 
         if (session.getAttribute("task_form") == null) {
@@ -118,7 +118,7 @@ public class TaskEditServlet extends HttpServlet {
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
 
-        Verkaufsanzeigen task = this.getRequestedTask(request);
+        Verkaufsanzeige task = this.getRequestedTask(request);
 
         if (taskCategory != null && !taskCategory.trim().isEmpty()) {
             try {
@@ -188,7 +188,7 @@ public class TaskEditServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Datensatz löschen
-        Verkaufsanzeigen task = this.getRequestedTask(request);
+        Verkaufsanzeige task = this.getRequestedTask(request);
         this.taskBean.delete(task);
 
         // Zurück zur Übersicht
@@ -203,9 +203,9 @@ public class TaskEditServlet extends HttpServlet {
      * @param request HTTP-Anfrage
      * @return Zu bearbeitende Aufgabe
      */
-    private Verkaufsanzeigen getRequestedTask(HttpServletRequest request) {
+    private Verkaufsanzeige getRequestedTask(HttpServletRequest request) {
         // Zunächst davon ausgehen, dass ein neuer Satz angelegt werden soll
-        Verkaufsanzeigen task = new Verkaufsanzeigen();
+        Verkaufsanzeige task = new Verkaufsanzeige();
         task.setOwner(this.userBean.getCurrentUser());
         task.setDueDate(new Date(System.currentTimeMillis()));
         task.setDueTime(new Time(System.currentTimeMillis()));
@@ -243,7 +243,7 @@ public class TaskEditServlet extends HttpServlet {
      * @param task Die zu bearbeitende Aufgabe
      * @return Neues, gefülltes FormValues-Objekt
      */
-    private FormValues createTaskForm(Verkaufsanzeigen task) {
+    private FormValues createTaskForm(Verkaufsanzeige task) {
         Map<String, String[]> values = new HashMap<>();
 
         values.put("task_owner", new String[]{
