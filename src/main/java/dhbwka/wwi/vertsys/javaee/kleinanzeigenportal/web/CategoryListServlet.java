@@ -13,7 +13,7 @@ import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeigen;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -150,7 +150,7 @@ public class CategoryListServlet extends HttpServlet {
             }
             
             // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
-            category.getTasks().forEach((Verkaufsanzeigen task) -> {
+            category.getTasks().forEach((Verkaufsanzeige task) -> {
                 task.setCategory(null);
                 this.taskBean.update(task);
             });
