@@ -16,12 +16,12 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/benutzer.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/benutzerBearbeiten.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/benutzerBearbeiten/"/>">BenutzerprofilBearbeiten</a>
+            <a href="<c:url value="/bearbeiten/"/>">BenutzerprofilBearbeiten</a>
         </div>
     </jsp:attribute>
 
@@ -39,7 +39,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="signup_username" value="${signup_form.values["signup_username"][0]}">
+                        <input type="text" name="bearbeiten_username" value="${bearbeiten_form.values["signup_username"][0]}">
                     </div>
 
                     <label for="signup_password1">
@@ -47,7 +47,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="signup_password1" value="${signup_form.values["signup_password1"][0]}">
+                        <input type="password" name="bearbeiten_password1" value="${bearbeiten_form.values["signup_password1"][0]}">
                     </div>
 
                     <label for="signup_newPassword">
@@ -55,7 +55,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="signup_newPassword" value="${signup_form.values["signup_newPassword"][0]}">
+                        <input type="password" name="bearbeiten_newPassword" value="${bearbeiten_form.values["signup_newPassword"][0]}">
                     </div>
                     
                     <label for="signup_newPassword2">
@@ -63,7 +63,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="signup_newPassword2" value="${signup_form.values["signup_newPassword2"][0]}">
+                        <input type="password" name="bearbeiten_newPassword2" value="${bearbeiten_form.values["signup_newPassword2"][0]}">
                     </div>
                     
                     <h2>Anschrift</h2>
@@ -72,22 +72,22 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="vorNachname" value="${signup_form.values["vorNachname"][0]}">
+                        <input type="text" name="vorNachname" value="${bearbeiten_form.values["vorNachname"][0]}">
                     </div>    
                     <label for="strasseHausnr">
                         Straße und Hausnummer:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="strasseHausnr" value="${signup_form.values["strasseHausnr"][0]}">
+                        <input type="text" name="strasseHausnr" value="${bearbeiten_form.values["strasseHausnr"][0]}">
                     </div>  
                     <label for="plz">
                         Postleitzahl und Ort:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="plz" value="${signup_form.values["plz"][0]}">
-                        <input type="text" name="ort" value="${signup_form.values["ort"][0]}">
+                        <input type="text" name="plz" value="${bearbeiten_form.values["plz"][0]}">
+                        <input type="text" name="ort" value="${bearbeiten_form.values["ort"][0]}">
                     </div>
                     
                     <h2>Kontaktdaten</h2>
@@ -96,8 +96,8 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="telefon" value="${signup_form.values["telefon"][0]}">
-                        <input type="text" name="email" value="${signup_form.values["email"][0]}">
+                        <input type="text" name="telefon" value="${bearbeiten_form.values["telefon"][0]}">
+                        <input type="text" name="email" value="${bearbeiten_form.values["email"][0]}">
                     </div>           
 
                     <%-- Button zum Abschicken --%>
