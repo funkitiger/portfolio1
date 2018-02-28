@@ -60,7 +60,7 @@ public class BenutzerBearbeitenServlet extends HttpServlet {
         
         
         // Eingaben prüfen
-        Benutzer user = new Benutzer(username, password2, username, password2, 0, password2, username, password2);
+        Benutzer user = new Benutzer(username, password2, vorNachname, strasseHnr, String.valueOf(plz), "", email, telefonNr);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         

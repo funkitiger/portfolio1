@@ -35,7 +35,7 @@ public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> {
      * @return Alle Aufgaben des Benutzers
      */
     public List<Verkaufsanzeige> findByUsername(String username) {
-        return em.createQuery("SELECT t FROM Task t WHERE t.owner.username = :username ORDER BY t.dueDate, t.dueTime")
+        return em.createQuery("SELECT t FROM Verkaufsanzeige t WHERE t.owner.username = :username ORDER BY t.erstellungsdatum")
                  .setParameter("username", username)
                  .getResultList();
     }
@@ -59,8 +59,8 @@ public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> {
         Root<Verkaufsanzeige> from = query.from(Verkaufsanzeige.class);
         query.select(from);
 
-        // ORDER BY erstelldatum, erstellungszeit
-        query.orderBy(cb.asc(from.get("erstelldatum")), cb.asc(from.get("erstellungszeit")));
+        // ORDER BY erstelldatum
+        query.orderBy(cb.asc(from.get("erstellungsdatum")));
         
         // WHERE t.shortText LIKE :search
         if (search != null && !search.trim().isEmpty()) {

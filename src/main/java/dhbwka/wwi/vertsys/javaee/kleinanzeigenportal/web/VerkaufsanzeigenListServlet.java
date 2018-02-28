@@ -26,14 +26,14 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet für die Startseite bzw. jede Seite, die eine Liste der Aufgaben
  * zeigt.
  */
-@WebServlet(urlPatterns = {"/app/tasks/"})
-public class TaskListServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/app/uebersicht/"})
+public class VerkaufsanzeigenListServlet extends HttpServlet {
 
     @EJB
     private KategorieBean categoryBean;
     
     @EJB
-    private VerkaufsanzeigenBean taskBean;
+    private VerkaufsanzeigenBean anzeigenBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,10 +57,10 @@ public class TaskListServlet extends HttpServlet {
             }
         }
 
-        List<Verkaufsanzeige> tasks = this.taskBean.search(searchText, category);
-        request.setAttribute("tasks", tasks);
+        List<Verkaufsanzeige> anzeigen = this.anzeigenBean.search(searchText, category);
+        request.setAttribute("anzeigen", anzeigen);
 
         // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("/WEB-INF/app/task_list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/app/verkaufsanzeige_list.jsp").forward(request, response);
     }
 }

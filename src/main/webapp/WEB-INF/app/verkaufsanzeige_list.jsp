@@ -64,9 +64,9 @@
 
         <%-- Gefundene Aufgaben --%>
         <c:choose>
-            <c:when test="${empty tasks}">
+            <c:when test="${empty anzeigen}">
                 <p>
-                    Es wurden keine Aufgaben gefunden. 🐈
+                    Es wurden keine Anzeigen gefunden. 🐈
                 </p>
             </c:when>
             <c:otherwise>
@@ -83,30 +83,30 @@
                             <th>Datum</th>
                         </tr>
                     </thead>
-                    <c:forEach items="${verkaufsanzeige}" var="task">
+                    <c:forEach items="${anzeigen}" var="anzeige">
                         <tr>
                             <td>
-                                <a href="<c:url value="/app/task/${verkaufsanzeige.id}/"/>">
-                                    <c:out value="${verkaufsanzeige.bezeichnung}"/>
+                                <a href="<c:url value="/app/task/${anzeige.id}/"/>">
+                                    <c:out value="${anzeige.bezeichnung}"/>
                                 </a>
                             </td>
                             <td>
-                                <c:out value="${verkaufsanzeige.kategorie.name}"/>
+                                <c:out value="${anzeige.kategorie.name}"/>
                             </td>
                             <td>
-                                <c:out value="${verkaufsanzeige.benutzer.vorNachname}"/>
+                                <c:out value="${anzeige.owner.vorNachname}"/>
                             </td>
                             <td>
-                                <c:out value="${verkaufsanzeige.angebotArt}"/>
+                                <c:out value="${anzeige.angebotArt}"/>
                             </td>
                             <td>
-                                <c:out value="${verkaufsanzeige.preis}"/>
+                                <c:out value="${anzeige.preis}"/>
                             </td>
                             <td>
-                                <c:out value="${verkaufsanzeige.preisArt}"/>
+                                <c:out value="${anzeige.preisArt}"/>
                             </td>
                             <td>
-                                <c:out value="${utils.formatDate(verkaufsanzeige.erstellungsdatum)}" />
+                                <c:out value="${utils.formatDate(anzeige.erstellungsdatum)}" />
                             </td>
                         </tr>
                     </c:forEach>
