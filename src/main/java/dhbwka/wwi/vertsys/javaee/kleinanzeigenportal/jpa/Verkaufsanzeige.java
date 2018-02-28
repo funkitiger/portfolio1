@@ -37,7 +37,7 @@ public class Verkaufsanzeige implements Serializable {
     private long id;
 
     @ManyToOne
-    @NotNull(message = "Die Aufgabe muss einem Benutzer geordnet werden.")
+    @NotNull(message = "Die Verkaufsanzeige muss einem Benutzer geordnet werden.")
     private Benutzer owner;
 
     @ManyToOne

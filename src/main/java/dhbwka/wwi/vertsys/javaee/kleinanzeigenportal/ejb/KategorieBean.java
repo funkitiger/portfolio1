@@ -19,9 +19,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @RolesAllowed("todo-app-user")
-public class CategoryBean extends EntityBean<Kategorie, Long> {
+public class KategorieBean extends EntityBean<Kategorie, Long> {
 
-    public CategoryBean() {
+    public KategorieBean() {
         super(Kategorie.class);
     }
 

@@ -10,7 +10,7 @@
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.UserBean;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.BenutzerBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Benutzer;
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
     ValidationBean validationBean;
             
     @EJB
-    UserBean userBean;
+    BenutzerBean userBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +62,7 @@ public class SignUpServlet extends HttpServlet {
         //TODO
         
         // Eingaben prüfen
-        Benutzer user = new Benutzer(username, password1);
+        Benutzer user = new Benutzer(username, password2, username, password2, 0, password2, username, password2);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         
@@ -73,8 +73,8 @@ public class SignUpServlet extends HttpServlet {
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
             try {
-                this.userBean.signup(username, password1);
-            } catch (UserBean.UserAlreadyExistsException ex) {
+                this.userBean.signup(username, password2, username, password2, 0, password2, username, password2);
+            } catch (BenutzerBean.UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
             }
         }

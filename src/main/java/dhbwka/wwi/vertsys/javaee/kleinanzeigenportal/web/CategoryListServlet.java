@@ -9,7 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.KategorieBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.VerkaufsanzeigenBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
@@ -34,7 +34,7 @@ import javax.servlet.http.HttpSession;
 public class CategoryListServlet extends HttpServlet {
 
     @EJB
-    CategoryBean categoryBean;
+    KategorieBean categoryBean;
     
     @EJB
     VerkaufsanzeigenBean taskBean;
@@ -150,8 +150,8 @@ public class CategoryListServlet extends HttpServlet {
             }
             
             // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
-            category.getTasks().forEach((Verkaufsanzeige task) -> {
-                task.setCategory(null);
+            category.getAnzeige().forEach((Verkaufsanzeige task) -> {
+                task.setKategorie(null);
                 this.taskBean.update(task);
             });
             

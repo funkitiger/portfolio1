@@ -21,7 +21,7 @@ import javax.persistence.PersistenceContext;
  * Spezielle EJB zum Anlegen eines Benutzers und Aktualisierung des Passworts.
  */
 @Stateless
-public class UserBean {
+public class BenutzerBean {
 
     @PersistenceContext
     EntityManager em;
@@ -40,16 +40,22 @@ public class UserBean {
 
     /**
      *
-     * @param username
-     * @param password
+     * @param benutzername
+     * @param passwort
+     * @param vorNachname
+     * @param strasseHnr
+     * @param plz
+     * @param ort
+     * @param email
+     * @param telefonnr
      * @throws UserBean.UserAlreadyExistsException
      */
-    public void signup(String username, String password) throws UserAlreadyExistsException {
-        if (em.find(Benutzer.class, username) != null) {
-            throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
+    public void signup(String benutzername, String passwort, String vorNachname, String strasseHnr, int plz, String ort, String email, String telefonnr) throws UserAlreadyExistsException {
+        if (em.find(Benutzer.class, benutzername) != null) {
+            throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", benutzername));
         }
 
-        Benutzer user = new Benutzer(username, password);
+        Benutzer user = new Benutzer(benutzername, passwort, vorNachname, strasseHnr, plz, ort, email, telefonnr);
         user.addToGroup("todo-app-user");
         em.persist(user);
     }

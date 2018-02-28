@@ -50,10 +50,10 @@ public class Benutzer implements Serializable {
     
     public class Password {
         @Size(min = 6, max = 64, message = "Das Passwort muss zwischen sechs und 64 Zeichen lang sein.")
-        public String password = "";
+        public String passwort = "";
     }
     @Transient
-    private final Password password = new Password();
+    private final Password passwort = new Password();
 
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
@@ -87,11 +87,19 @@ public class Benutzer implements Serializable {
     public Benutzer() {
     }
 
-    public Benutzer(String benutzername, String password) {
+    public Benutzer(String benutzername, String passwort, String vorNachname, String strasseHnr, int plz, String ort, String email, String telefonnr) {
         this.benutzername = benutzername;
-        this.password.password = password;
-        this.passwordHash = this.hashPassword(password);
+        this.passwort.passwort = passwort;
+        this.passwordHash = this.hashPassword(passwort);
+        this.vorNachname = vorNachname;
+        this.strasseHnr = strasseHnr;
+        this.plz = plz;
+        this.ort = ort;
+        this.telefonnr = telefonnr;
+        this.email = email;
     }
+    
+    
     //</editor-fold>
     
   //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
@@ -122,16 +130,16 @@ public class Benutzer implements Serializable {
     /**
      * Berechnet einen Hashwert aus dem übergebenen Passwort und legt ihn im
      * Feld passwordHash ab. Somit wird das Passwort niemals als Klartext
-     * gespeichert.
-     * 
-     * Gleichzeitig wird das Passwort im nicht gespeicherten Feld password
-     * abgelegt, um durch die Bean Validation Annotationen überprüft werden
-     * zu können.
+ gespeichert.
+ 
+ Gleichzeitig wird das Passwort im nicht gespeicherten Feld passwort
+ abgelegt, um durch die Bean Validation Annotationen überprüft werden
+ zu können.
      *
      * @param password Neues Passwort
      */
     public void setPassword(String password) {
-        this.password.password = password;
+        this.passwort.passwort = password;
         this.passwordHash = this.hashPassword(password);
     }
 
@@ -140,7 +148,7 @@ public class Benutzer implements Serializable {
      * @return Neues, beim Speichern gesetztes Passwort
      */
     public Password getPassword() {
-        return this.password;
+        return this.passwort;
     }
     
     /**
