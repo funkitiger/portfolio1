@@ -14,20 +14,29 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  * Spezielle EJB zum Anlegen eines Benutzers und Aktualisierung des Passworts.
+ * @param <Entity>
+ * @param <EntityId>
  */
 @Stateless
-public class BenutzerBean {
+public class BenutzerBean extends EntityBean<Benutzer, String> {
 
     @PersistenceContext
     EntityManager em;
     
     @Resource
     EJBContext ctx;
+
+   
+
+    public BenutzerBean() {
+        super(Benutzer.class);
+    }
 
     /**
      * Gibt das Datenbankobjekt des aktuell eingeloggten Benutzers zurück,
@@ -50,7 +59,7 @@ public class BenutzerBean {
      * @param telefonnr
      * @throws UserBean.UserAlreadyExistsException
      */
-    public void signup(String benutzername, String passwort, String vorNachname, String strasseHnr, int plz, String ort, String email, String telefonnr) throws UserAlreadyExistsException {
+    public void signup(String benutzername, String passwort, String vorNachname, String strasseHnr, String plz, String ort, String email, String telefonnr) throws UserAlreadyExistsException {
         if (em.find(Benutzer.class, benutzername) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", benutzername));
         }

@@ -62,9 +62,9 @@ public class Benutzer implements Serializable {
     private String vorNachname;
     @NotNull(message = "Die StraÃŸe und Hausnunmmer darf nicht leer sein.")
     private String strasseHnr;
-    @Size(max = 99999, min = 10000)
+   // @Size(max = 99999, min = 10000)
     @NotNull(message = "Die Postleitzahl darf muss einen Wert zwischen 10000 und 99999 sein.")
-    private int plz;
+    private String plz;
     @NotNull(message = "Der Ort darf nicht leer sein.")
     private String ort;
     
@@ -88,7 +88,7 @@ public class Benutzer implements Serializable {
     public Benutzer() {
     }
 
-    public Benutzer(String benutzername, String passwort, String vorNachname, String strasseHnr, int plz, String ort, String email, String telefonnr) {
+    public Benutzer(String benutzername, String passwort, String vorNachname, String strasseHnr, String plz, String ort, String email, String telefonnr) {
         this.benutzername = benutzername;
         this.passwort.passwort = passwort;
         this.passwordHash = this.hashPassword(passwort);
