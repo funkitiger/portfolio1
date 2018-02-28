@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
  * Eine zu erledigende Aufgabe.
  */
 @Entity
-public class Task implements Serializable {
+public class Verkaufsanzeigen implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,10 +39,10 @@ public class Task implements Serializable {
 
     @ManyToOne
     @NotNull(message = "Die Aufgabe muss einem Benutzer geordnet werden.")
-    private User owner;
+    private Benutzer owner;
 
     @ManyToOne
-    private Category category;
+    private Kategorie category;
 
     @Column(length = 50)
     @NotNull(message = "Die Bezeichnung darf nicht leer sein.")
@@ -64,10 +64,10 @@ public class Task implements Serializable {
     private TaskStatus status = TaskStatus.OPEN;
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
-    public Task() {
+    public Verkaufsanzeigen() {
     }
 
-    public Task(User owner, Category category, String shortText, String longText, Date dueDate, Time dueTime) {
+    public Verkaufsanzeigen(Benutzer owner, Kategorie category, String shortText, String longText, Date dueDate, Time dueTime) {
         this.owner = owner;
         this.category = category;
         this.shortText = shortText;
@@ -86,19 +86,19 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public User getOwner() {
+    public Benutzer getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Benutzer owner) {
         this.owner = owner;
     }
 
-    public Category getCategory() {
+    public Kategorie getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Kategorie category) {
         this.category = category;
     }
 

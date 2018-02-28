@@ -12,8 +12,8 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Category;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Task;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeigen;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -95,7 +95,7 @@ public class CategoryListServlet extends HttpServlet {
         // Formulareingaben prüfen
         String name = request.getParameter("name");
 
-        Category category = new Category(name);
+        Kategorie category = new Kategorie(name);
         List<String> errors = this.validationBean.validate(category);
 
         // Neue Kategorie anlegen
@@ -137,7 +137,7 @@ public class CategoryListServlet extends HttpServlet {
         // Kategorien löschen
         for (String categoryId : categoryIds) {
             // Zu löschende Kategorie ermitteln
-            Category category;
+            Kategorie category;
 
             try {
                 category = this.categoryBean.findById(Long.parseLong(categoryId));
@@ -150,7 +150,7 @@ public class CategoryListServlet extends HttpServlet {
             }
             
             // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
-            category.getTasks().forEach((Task task) -> {
+            category.getTasks().forEach((Verkaufsanzeigen task) -> {
                 task.setCategory(null);
                 this.taskBean.update(task);
             });

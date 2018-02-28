@@ -9,7 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb;
 
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Category;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -19,10 +19,10 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @RolesAllowed("todo-app-user")
-public class CategoryBean extends EntityBean<Category, Long> {
+public class CategoryBean extends EntityBean<Kategorie, Long> {
 
     public CategoryBean() {
-        super(Category.class);
+        super(Kategorie.class);
     }
 
     /**
@@ -30,7 +30,7 @@ public class CategoryBean extends EntityBean<Category, Long> {
      *
      * @return Liste mit allen Kategorien
      */
-    public List<Category> findAllSorted() {
+    public List<Kategorie> findAllSorted() {
         return this.em.createQuery("SELECT c FROM Category c ORDER BY c.name").getResultList();
     }
 }

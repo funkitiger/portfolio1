@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "JTODO_USER")
-public class User implements Serializable {
+public class Benutzer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -65,13 +65,13 @@ public class User implements Serializable {
     List<String> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    List<Task> tasks = new ArrayList<>();
+    List<Verkaufsanzeigen> tasks = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
-    public User() {
+    public Benutzer() {
     }
 
-    public User(String username, String password) {
+    public Benutzer(String username, String password) {
         this.username = username;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);
@@ -87,11 +87,11 @@ public class User implements Serializable {
         this.username = id;
     }
 
-    public List<Task> getTasks() {
+    public List<Verkaufsanzeigen> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Verkaufsanzeigen> tasks) {
         this.tasks = tasks;
     }
     //</editor-fold>

@@ -11,7 +11,7 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.UserBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.User;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Benutzer;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -61,7 +61,7 @@ public class SignUpServlet extends HttpServlet {
         String password2 = request.getParameter("signup_password2");
         
         // Eingaben prüfen
-        User user = new User(username, password1);
+        Benutzer user = new Benutzer(username, password1);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         

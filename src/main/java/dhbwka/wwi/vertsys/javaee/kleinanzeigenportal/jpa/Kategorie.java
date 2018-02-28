@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
  * Kategorien, die den Aufgaben zugeordnet werden können.
  */
 @Entity
-public class Category implements Serializable {
+public class Kategorie implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,13 +41,13 @@ public class Category implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    List<Task> tasks = new ArrayList<>();
+    List<Verkaufsanzeigen> tasks = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
-    public Category() {
+    public Kategorie() {
     }
 
-    public Category(String name) {
+    public Kategorie(String name) {
         this.name = name;
     }
     //</editor-fold>
@@ -69,11 +69,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public List<Task> getTasks() {
+    public List<Verkaufsanzeigen> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Verkaufsanzeigen> tasks) {
         this.tasks = tasks;
     }
     //</editor-fold>

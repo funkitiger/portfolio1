@@ -9,7 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb;
 
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.User;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Benutzer;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBContext;
@@ -34,8 +34,8 @@ public class UserBean {
      *
      * @return Eingeloggter Benutzer oder null
      */
-    public User getCurrentUser() {
-        return this.em.find(User.class, this.ctx.getCallerPrincipal().getName());
+    public Benutzer getCurrentUser() {
+        return this.em.find(Benutzer.class, this.ctx.getCallerPrincipal().getName());
     }
 
     /**
@@ -45,11 +45,11 @@ public class UserBean {
      * @throws UserBean.UserAlreadyExistsException
      */
     public void signup(String username, String password) throws UserAlreadyExistsException {
-        if (em.find(User.class, username) != null) {
+        if (em.find(Benutzer.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
         }
 
-        User user = new User(username, password);
+        Benutzer user = new Benutzer(username, password);
         user.addToGroup("todo-app-user");
         em.persist(user);
     }
@@ -62,7 +62,7 @@ public class UserBean {
      * @throws UserBean.InvalidCredentialsException
      */
     @RolesAllowed("todo-app-user")
-    public void changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
+    public void changePassword(Benutzer user, String oldPassword, String newPassword) throws InvalidCredentialsException {
         if (user == null || !user.checkPassword(oldPassword)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
         }
@@ -75,7 +75,7 @@ public class UserBean {
      * @param user Zu löschender Benutzer
      */
     @RolesAllowed("todo-app-user")
-    public void delete(User user) {
+    public void delete(Benutzer user) {
         this.em.remove(user);
     }
     
@@ -85,7 +85,7 @@ public class UserBean {
      * @return Gespeicherter Benutzer
      */
     @RolesAllowed("todo-app-user")
-    public User update(User user) {
+    public Benutzer update(Benutzer user) {
         return em.merge(user);
     }
 

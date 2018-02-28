@@ -11,8 +11,8 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Category;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Task;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeigen;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.TaskStatus;
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +50,7 @@ public class TaskListServlet extends HttpServlet {
         String searchStatus = request.getParameter("search_status");
 
         // Anzuzeigende Aufgaben suchen
-        Category category = null;
+        Kategorie category = null;
         TaskStatus status = null;
 
         if (searchCategory != null) {
@@ -70,7 +70,7 @@ public class TaskListServlet extends HttpServlet {
 
         }
 
-        List<Task> tasks = this.taskBean.search(searchText, category, status);
+        List<Verkaufsanzeigen> tasks = this.taskBean.search(searchText, category, status);
         request.setAttribute("tasks", tasks);
 
         // Anfrage an die JSP weiterleiten
