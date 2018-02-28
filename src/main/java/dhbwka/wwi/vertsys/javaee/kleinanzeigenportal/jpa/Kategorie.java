@@ -21,10 +21,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * Kategorien, die den Aufgaben zugeordnet werden können.
  */
+@Data
 @Entity
 public class Kategorie implements Serializable {
 
@@ -40,8 +42,8 @@ public class Kategorie implements Serializable {
     @Size(min = 3, max = 30, message = "Der Name muss zwischen drei und 30 Zeichen lang sein.")
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    List<Verkaufsanzeige> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "kategorie", fetch = FetchType.LAZY)
+    List<Verkaufsanzeige> anzeige = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Kategorie() {
@@ -49,32 +51,6 @@ public class Kategorie implements Serializable {
 
     public Kategorie(String name) {
         this.name = name;
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Verkaufsanzeige> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Verkaufsanzeige> tasks) {
-        this.tasks = tasks;
     }
     //</editor-fold>
 

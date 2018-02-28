@@ -10,7 +10,7 @@
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.CategoryBean;
-import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.TaskBean;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.VerkaufsanzeigenBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession;
 public class TaskEditServlet extends HttpServlet {
 
     @EJB
-    TaskBean taskBean;
+    VerkaufsanzeigenBean taskBean;
 
     @EJB
     CategoryBean categoryBean;

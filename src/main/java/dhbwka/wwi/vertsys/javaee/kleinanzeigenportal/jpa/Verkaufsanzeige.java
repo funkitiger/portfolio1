@@ -11,11 +11,8 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -59,8 +56,6 @@ public class Verkaufsanzeige implements Serializable {
     
     private Date erstellungsdatum;
     
-    private Time erstellzeit;
-    
     private PreisArt preisArt;
     
     private double preis;
@@ -71,13 +66,12 @@ public class Verkaufsanzeige implements Serializable {
     public Verkaufsanzeige() {
     }
 
-    public Verkaufsanzeige(Benutzer owner, Kategorie category, String bezeichnung, String beschreibung, Date erstellungsdatum, Time erstellzeit) {
+    public Verkaufsanzeige(Benutzer owner, Kategorie category, String bezeichnung, String beschreibung, Date erstellungsdatum) {
         this.owner = owner;
         this.kategorie = category;
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.erstellungsdatum = erstellungsdatum;
-        this.erstellzeit = erstellzeit;
     }
    
 
