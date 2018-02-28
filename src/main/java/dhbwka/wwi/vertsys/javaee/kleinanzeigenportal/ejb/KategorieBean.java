@@ -31,6 +31,6 @@ public class KategorieBean extends EntityBean<Kategorie, Long> {
      * @return Liste mit allen Kategorien
      */
     public List<Kategorie> findAllSorted() {
-        return this.em.createQuery("SELECT c FROM Category c ORDER BY c.name").getResultList();
+        return this.em.createQuery("SELECT c FROM Kategorie c ORDER BY c.name").getResultList();
     }
 }
