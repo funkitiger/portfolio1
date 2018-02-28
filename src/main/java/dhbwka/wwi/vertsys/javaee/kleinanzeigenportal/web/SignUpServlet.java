@@ -35,7 +35,6 @@ public class SignUpServlet extends HttpServlet {
             
     @EJB
     BenutzerBean benutzerBean;
-    BenutzerBean userBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,26 +60,24 @@ public class SignUpServlet extends HttpServlet {
         String password1 = request.getParameter("signup_password1");
         String password2 = request.getParameter("signup_password2");
         String vorNachname = request.getParameter("vorNachname");
-        String strasseHnr = request.getParameter("strasseHausNr"); //TODO: Exception abfangen?
+        String strasseHnr = request.getParameter("strasseHausnr");
         String plz = request.getParameter("plz");
         String telefonNr = request.getParameter("telefonnr");
         String email = request.getParameter("email");
         String ort = request.getParameter("ort");
 
-        
-        // Eingaben prÃ¼fen
+        // Eingaben prüfen
         Benutzer user = new Benutzer(username, password1, vorNachname, strasseHnr, plz, ort, email, telefonNr);
         List<String> errors = this.validationBean.validate(user);
-        this.validationBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden Passwörter stimmen nicht Ã¼berein.");
+            errors.add("Die beiden Passwörter stimmen nicht überein.");
         }
         
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
             try {
-                this.userBean.signup(username, password1, vorNachname, strasseHnr, plz, ort, email, telefonNr);
+                this.benutzerBean.signup(username, password1, vorNachname, strasseHnr, plz, ort, email, telefonNr);
             } catch (BenutzerBean.UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
             }
