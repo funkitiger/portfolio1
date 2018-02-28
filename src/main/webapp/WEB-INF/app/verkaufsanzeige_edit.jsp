@@ -31,7 +31,7 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/app/tasks/"/>">Übersicht</a>
+            <a href="<c:url value="/app/uebersicht/"/>">Übersicht</a>
         </div>
     </jsp:attribute>
 
@@ -42,12 +42,12 @@
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                 <%-- Eingabefelder --%>
-                <label for="task_category">Kategorie:</label>
+                <label for="category">Kategorie:</label>
                 <div class="side-by-side">
                     <select name="category">
 
-                        <c:forEach items="${kategorien}" var="category">
-                            <option value="${kategorie.id}" ${verkaufsanzeige_form.values["kategorie"][0] == category.id ? 'selected' : ''}>
+                        <c:forEach items="${kategorien}" var="kategorie">
+                            <option value="${kategorie.id}" ${verkaufsanzeige_form.values["kategorie"][0] == kategorie.id ? 'selected' : ''}>
                                 <c:out value="${kategorie.name}" />
                             </option>
                         </c:forEach>
@@ -58,9 +58,8 @@
                 </label>
                 <div class="side-by-side">
                     <select name="angebotArt">
-                        <c:forEach items="${angebotArten}" var="category">
-                            <option value="${angebotArt.id}" ${verkaufsanzeige_form.values["angebotArt"][0] == angebotArt.id ? 'selected' : ''}>
-                                <c:out value="${angebotArt.name}" />
+                        <c:forEach items="${angebotArten}" var="angebotArt">
+                            <option value="${angebotArt}" ${verkaufsanzeige_form.values["angebotArt"][0] == angebotArt ? 'selected' : ''}>
                             </option>
                         </c:forEach>
                     </select>
@@ -82,8 +81,7 @@
                 <div class="side-by-side">
                     <select name="preisArt">
                         <c:forEach items="${preisArten}" var="preisArt">
-                            <option value="${preisArt.id}" ${verkaufsanzeige_form.values["preisArt"][0] == preisArt.id ? 'selected' : ''}>
-                                <c:out value="${preisArt.name}" />
+                            <option value="${preisArt}" ${verkaufsanzeige_form.values["preisArt"][0] == preisArt ? 'selected' : ''}>
                             </option>
                         </c:forEach>
                     </select>
@@ -99,43 +97,14 @@
                     Anbieter:
                 </label>
                 <div class="side-by-side">
-                    ${verkaufsanzeige_form.values['anbieter.vorNachname'][0]} <br />
-                    ${verkaufsanzeige_form.values['anbieter.strasseHausnr'][0]} <br />
-                    ${verkaufsanzeige_form.values['anbieter.plz'][0]} ${verkaufsanzeige_form.values['anbieter.ort'][0]} <br />
-                    ${verkaufsanzeige_form.values['anbieter.telefonnr'][0]} <br/> 
-                    ${verkaufsanzeige_form.values['anbieter.email'][0]} 
+                    ${verkaufsanzeige_form.values['vorNachname'][0]} <br />
+                    ${verkaufsanzeige_form.values['strasseHausnr'][0]} <br />
+                    ${verkaufsanzeige_form.values['plz'][0]} ${verkaufsanzeige_form.values['ort'][0]} <br />
+                    ${verkaufsanzeige_form.values['telefonnr'][0]} <br/> 
+                    ${verkaufsanzeige_form.values['email'][0]} 
                 </div>
                 
-                
-                
-                <label for="task_due_date">
-                    Fällig am:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side">
-                    <input type="text" name="task_due_date" value="${task_form.values["task_due_date"][0]}">
-                    <input type="text" name="task_due_time" value="${task_form.values["task_due_time"][0]}">
-                </div>
-
-                <label for="task_status">
-                    Status:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side margin">
-                    <select name="task_status">
-                        <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${task_form.values["task_status"][0] == status ? 'selected' : ''}>
-                                <c:out value="${status.label}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>
-
-
-
-
-
-                <%-- Button zum Abschicken --%>
+              <%-- Button zum Abschicken --%>
                 <div class="side-by-side">
                     <button class="icon-pencil" type="submit" name="action" value="save">
                         Sichern
