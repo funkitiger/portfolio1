@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 Dennis Schulmeister-Zimolong
+ * Copyright Â© 2018 Dennis Schulmeister-Zimolong
  * 
  * E-Mail: dhbw@windows3.de
  * Webseite: https://www.wpvs.de/
@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet für die Registrierungsseite. Hier kann sich ein neuer Benutzer
- * registrieren. Anschließend wird der auf die Startseite weitergeleitet.
+ * Servlet fÃ¼r die Registrierungsseite. Hier kann sich ein neuer Benutzer
+ * registrieren. AnschlieÃŸend wird der auf die Startseite weitergeleitet.
  */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
@@ -34,13 +34,14 @@ public class SignUpServlet extends HttpServlet {
     ValidationBean validationBean;
             
     @EJB
+    BenutzerBean benutzerBean;
     BenutzerBean userBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Anfrage an dazugerhörige JSP weiterleiten
+        // Anfrage an dazugehÃ¶rige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
         dispatcher.forward(request, response);
         
@@ -59,15 +60,20 @@ public class SignUpServlet extends HttpServlet {
         String username = request.getParameter("signup_username");
         String password1 = request.getParameter("signup_password1");
         String password2 = request.getParameter("signup_password2");
-        //TODO
+        String vorNachname = request.getParameter("vorNachname");
+        String strasseHnr = request.getParameter("strasseHausNr"); //TODO: Exception abfangen?
+        int plz = Integer.parseInt(request.getParameter("plz"));
+        String telefonNr = request.getParameter("telefonnr");
+        String email = request.getParameter("email");
+
         
-        // Eingaben prüfen
+        // Eingaben prÃ¼fen
         Benutzer user = new Benutzer(username, password2, username, password2, 0, password2, username, password2);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden Passwörter stimmen nicht überein.");
+            errors.add("Die beiden PasswÃ¶rter stimmen nicht Ã¼berein.");
         }
         
         // Neuen Benutzer anlegen
@@ -79,11 +85,11 @@ public class SignUpServlet extends HttpServlet {
             }
         }
         
-        // Weiter zur nächsten Seite
+        // Weiter zur nÃ¤chsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
             request.login(username, password1);
-            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
+            response.sendRedirect(WebUtils.appUrl(request, "/app/uebersicht/"));
         } else {
             // Fehler: Formuler erneut anzeigen
             FormValues formValues = new FormValues();
