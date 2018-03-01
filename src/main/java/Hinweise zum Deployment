@@ -23,18 +23,18 @@ Gehe hierfür wie folgt vor:
     3. Oberhalb der Tabelle auf „New” klicken
     4. Folgende Werte eingeben (exakte Schreibweise beachten!)
 
-         Name:                             todo-app
+         Name:                             minimarkt-app
          Class Name:                       ….JDBCRealm
          JAAS Context:                     jdbcRealm
          JNDI:                             jdbc/__default
-         User Table:                       jtodo.jtodo_user
+         User Table:                       minimarkt.benutzer
          User Name Column:                 username
          Password Column:                  password_hash
-         Group Table:                      jtodo.jtodo_user_group
+         Group Table:                      minimarkt.benutzer_gruppe
          Group Table User Name Column:     username
          Group Name Column:                groupname
          Passwort Encryption Algorithm:    SHA-256
-         Assign Groups:                    todo-app-user
+         Assign Groups:                    minimarkt-app-user
 
     5. Oben rechts auf "OK" klicken zum Sichern
 

@@ -32,16 +32,16 @@
             Alle URLs beginnend mit /app/ schützen
         -->
         <web-resource-collection>
-            <web-resource-name>todo-app</web-resource-name>
+            <web-resource-name>minimarkt-app</web-resource-name>
             <url-pattern>/app/*</url-pattern>
         </web-resource-collection>
         
         <!--
-            Ein Benutzer muss die Rolle "todo-app-user" besitzen, um die
+            Ein Benutzer muss die Rolle "minimarkt-app-user" besitzen, um die
             Seiten aufrufen zu können.
         -->
         <auth-constraint>
-            <role-name>todo-app-user</role-name>
+            <role-name>minimarkt-app-user</role-name>
         </auth-constraint>
         
         <!--
@@ -66,7 +66,7 @@
             mindestens diese Rolle besitzen, um sich einloggen und neue
             Aufgaben anlegen zu können.
         </description>
-        <role-name>todo-app-user</role-name>
+        <role-name>minimarkt-app-user</role-name>
     </security-role>
     
     <!--
@@ -75,7 +75,7 @@
     -->
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>todo-app</realm-name>
+        <realm-name>minimarkt-app</realm-name>
         
         <form-login-config>
             <form-login-page>/WEB-INF/login/login.jsp</form-login-page>

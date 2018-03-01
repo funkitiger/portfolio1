@@ -3,8 +3,8 @@
 <glassfish-web-app error-url="">
   <context-root>/minimarkt</context-root>
   <security-role-mapping>
-    <role-name>todo-app-user</role-name>
-    <group-name>todo-app-user</group-name>
+    <role-name>minimarkt-app-user</role-name>
+    <group-name>minimarkt-app-user</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>

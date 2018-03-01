@@ -46,15 +46,6 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
         String username = this.ctx.getCallerPrincipal().getName();
         return this.em.find(Benutzer.class, username);
     }
-    
-    public Benutzer getCurrentUser2() {
-        String username = this.ctx.getCallerPrincipal().getName();
-        List<Benutzer> users = this.em.createQuery("FROM Benutzer b WHERE b.benutzername = :username").setParameter("username", username).getResultList();
-        if(users.isEmpty())
-            return null;
-        else
-            return users.get(0);
-    }
 
     /**
      *
@@ -74,7 +65,7 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
         }
 
         Benutzer benutzer = new Benutzer(benutzername, passwort, vorNachname, strasseHnr, plz, ort, email, telefonnr);
-        benutzer.addToGroup("todo-app-user");
+        benutzer.addToGroup("minimarkt-app-user");
         em.persist(benutzer);
     }
 
@@ -85,7 +76,7 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
      * @param passwortNeu
      * @throws UserBean.InvalidCredentialsException
      */
-    @RolesAllowed("todo-app-user")
+    @RolesAllowed("minimarkt-app-user")
     public void changePassword(Benutzer benutzer, String passwortAlt, String passwortNeu) throws InvalidCredentialsException {
         if (benutzer == null || !benutzer.checkPassword(passwortAlt)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
@@ -97,7 +88,7 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
      * Benutzer löschen
      * @param benutzer Zu löschender Benutzer
      */
-    @RolesAllowed("todo-app-user")
+    @RolesAllowed("minimarkt-app-user")
     public void delete(Benutzer benutzer) {
         this.em.remove(benutzer);
     }
@@ -107,7 +98,7 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
      * @param benutzer Zu aktualisierender Benutzer
      * @return Gespeicherter Benutzer
      */
-    @RolesAllowed("todo-app-user")
+    @RolesAllowed("minimarkt-app-user")
     public Benutzer update(Benutzer benutzer) {
         return em.merge(benutzer);
     }

@@ -38,7 +38,7 @@ public class BenutzerBearbeitenServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         if(session.getAttribute("bearbeiten_form") == null){
-            Benutzer benutzer = benutzerBean.getCurrentUser2();
+            Benutzer benutzer = benutzerBean.getCurrentUser();
             
             Map<String, String[]> values = new HashMap<String, String[]>();
             String[] help = new String[1];

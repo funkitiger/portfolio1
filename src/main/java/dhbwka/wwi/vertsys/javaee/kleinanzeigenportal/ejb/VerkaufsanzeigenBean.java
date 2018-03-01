@@ -23,7 +23,7 @@ import javax.persistence.criteria.Root;
  * Einfache EJB mit den üblichen CRUD-Methoden für Aufgaben
  */
 @Stateless
-@RolesAllowed("todo-app-user")
+@RolesAllowed("minimarkt-app-user")
 public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> { 
    
     public VerkaufsanzeigenBean() {
