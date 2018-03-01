@@ -9,6 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb;
 
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.AngebotArt;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
 import java.util.List;
@@ -50,7 +51,7 @@ public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> {
      * @param category Kategorie (optional)
      * @return Liste mit den gefundenen Aufgaben
      */
-    public List<Verkaufsanzeige> search(String search, Kategorie category) {
+    public List<Verkaufsanzeige> search(String search, Kategorie category, AngebotArt angebotArt) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         
@@ -72,6 +73,11 @@ public class VerkaufsanzeigenBean extends EntityBean<Verkaufsanzeige, Long> {
             query.where(cb.equal(from.get("kategorie"), category));
         }
         
+        // WHERE t.angebotArt = :angebotArt
+        if (angebotArt != null) {
+            query.where(cb.equal(from.get("angebotArt"), angebotArt));
+        } 
+       
         return em.createQuery(query).getResultList();
     }
 }

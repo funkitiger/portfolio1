@@ -11,6 +11,7 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.KategorieBean;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb.VerkaufsanzeigenBean;
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.AngebotArt;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Kategorie;
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Verkaufsanzeige;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class VerkaufsanzeigenListServlet extends HttpServlet {
 
     @EJB
     private KategorieBean categoryBean;
-    
+
     @EJB
     private VerkaufsanzeigenBean anzeigenBean;
 
@@ -41,13 +42,16 @@ public class VerkaufsanzeigenListServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
+        request.setAttribute("angebotsarten", AngebotArt.values());
 
         // Suchparameter aus der URL auslesen
         String searchText = request.getParameter("search_text");
         String searchCategory = request.getParameter("search_category");
+        String angebotArt = request.getParameter("search_angebotsarten");
 
         // Anzuzeigende Aufgaben suchen
         Kategorie category = null;
+        AngebotArt art = null;
 
         if (searchCategory != null) {
             try {
@@ -56,11 +60,18 @@ public class VerkaufsanzeigenListServlet extends HttpServlet {
                 category = null;
             }
         }
+        if (angebotArt != null) {
+            try {
+                art = AngebotArt.valueOf(angebotArt);
+            } catch (IllegalArgumentException ex) {
+                art = null;
+            }
+        }
+            List<Verkaufsanzeige> anzeigen = this.anzeigenBean.search(searchText, category, art);
+            request.setAttribute("anzeigen", anzeigen);
 
-        List<Verkaufsanzeige> anzeigen = this.anzeigenBean.search(searchText, category);
-        request.setAttribute("anzeigen", anzeigen);
-
-        // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("/WEB-INF/app/verkaufsanzeige_list.jsp").forward(request, response);
-    }
+            // Anfrage an die JSP weiterleiten
+            request.getRequestDispatcher("/WEB-INF/app/verkaufsanzeige_list.jsp").forward(request, response);
+        }
+    
 }
