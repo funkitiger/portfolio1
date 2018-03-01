@@ -64,7 +64,12 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
         Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
         request.setAttribute("edit", anzeige.getId() != 0);
         request.setAttribute("user", anzeige.getOwner());
-        //TODO: other_user
+        if(!userBean.getCurrentUser().getBenutzername().equals(anzeige.getOwner().getBenutzername()))
+        {
+            request.setAttribute("readonly", "readonly = readonly");
+            request.setAttribute("disabled", "disabled=disabled");
+        }
+        
 
         if (session.getAttribute("verkaufsanzeige_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,

@@ -44,7 +44,7 @@
                 <%-- Eingabefelder --%>
                 <label for="category">Kategorie:</label>
                 <div class="side-by-side">
-                    <select name="category">
+                    <select name="category" ${disabled}>
                         <option value="">Keine Kategorie</option>
 
                         <c:forEach items="${kategorien}" var="kategorie">
@@ -58,7 +58,7 @@
                     <span class="required">*</span>
                 </label>
                 <div class="side-by-side">
-                    <select name="angebotArt">
+                    <select name="angebotArt" ${disabled}>
                         <c:forEach items="${angebotArten}" var="angebotArt">
                             <option value="${angebotArt}" ${verkaufsanzeige_form.values["angebotArt"][0] == angebotArt ? 'selected' : ''}>
                                 <c:out value="${angebotArt.label}" />
@@ -71,24 +71,24 @@
                     <span class="required">*</span>
                 </label>
                 <div class="side-by-side">
-                    <input type="text" name="bezeichnung" value="${verkaufsanzeige_form.values["bezeichnung"][0]}">
+                    <input type="text" name="bezeichnung" value="${verkaufsanzeige_form.values["bezeichnung"][0]}" ${readonly}>
                 </div>
                 <label for="beschreibung">
                     Beschreibung:
                 </label>
                 <div class="side-by-side">
-                    <textarea name="beschreibung"><c:out value="${verkaufsanzeige_form.values['beschreibung'][0]}"/></textarea>
+                    <textarea name="beschreibung" ${readonly}><c:out value="${verkaufsanzeige_form.values['beschreibung'][0]}" /></textarea>
                 </div>
                 <label for="preisArt">Preis:</label>
                 <div class="side-by-side">
-                    <select name="preisArt">
+                    <select name="preisArt" ${disabled}>
                         <c:forEach items="${preisArten}" var="preisArt">
                             <option value="${preisArt}" ${verkaufsanzeige_form.values["preisArt"][0] == preisArt ? 'selected' : ''}>
                                 <c:out value="${preisArt.label}" />
                             </option>
                         </c:forEach>
                     </select>
-                    <input type="text" name="preis" value="${verkaufsanzeige_form.values["preis"][0]}">
+                    <input type="text" name="preis" value="${verkaufsanzeige_form.values["preis"][0]}" ${readonly}>
                 </div>
                 <label for="erstellungsdatum">
                     Angelegt am:
@@ -109,12 +109,12 @@
                 
               <%-- Button zum Abschicken --%>
                 <div class="side-by-side">
-                    <button class="icon-pencil" type="submit" name="action" value="save">
+                    <button class="icon-pencil" type="submit" name="action" value="save" ${disabled}>
                         Sichern
                     </button>
 
                     <c:if test="${edit}">
-                        <button class="icon-trash" type="submit" name="action" value="delete">
+                        <button class="icon-trash" type="submit" name="action" value="delete" ${disabled}>
                             Löschen
                         </button>
                     </c:if>
