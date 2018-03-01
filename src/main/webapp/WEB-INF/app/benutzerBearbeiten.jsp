@@ -21,7 +21,7 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/bearbeiten/"/>">Benutzerprofil Bearbeiten</a>
+            <a href="<c:url value="/app/uebersicht/"/>">Übersicht</a>
         </div>
     </jsp:attribute>
 
