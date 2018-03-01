@@ -41,10 +41,34 @@ public class BenutzerBearbeitenServlet extends HttpServlet {
             Benutzer benutzer = benutzerBean.getCurrentUser();
             
             Map<String, String[]> values = new HashMap<String, String[]>();
-            String[] help = new String[1];
-
-            help[0] = benutzer.getVorNachname();
-            values.put("vorNachname", help);
+            
+            String[] benutzername = new String[1];
+            benutzername[0] = benutzer.getBenutzername();
+            values.put("bearbeiten_username", benutzername);
+            
+            String[] vorNachname = new String[1];
+            vorNachname[0] = benutzer.getVorNachname();
+            values.put("vorNachname", vorNachname);
+            
+            String[] strasseHsnr = new String[1];
+            strasseHsnr[0] = benutzer.getStrasseHnr();
+            values.put("strasseHausnr", strasseHsnr);
+            
+            String[] plz = new String[1];
+            plz[0] = benutzer.getPlz();
+            values.put("plz", plz);
+            
+            String[] ort = new String[1];
+            ort[0] = benutzer.getOrt();
+            values.put("ort", ort);
+            
+            String[] telefon = new String[1];
+            telefon[0] = benutzer.getTelefonnr();
+            values.put("telefon", telefon);
+            
+            String[] email = new String[1];
+            email[0] = benutzer.getEmail();
+            values.put("email", email);
 
             FormValues formValues = new FormValues();
             formValues.setValues(values);
