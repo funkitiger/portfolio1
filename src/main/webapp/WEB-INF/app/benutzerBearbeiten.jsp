@@ -12,7 +12,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Login
+        BenutzerBearbeiten
     </jsp:attribute>
 
     <jsp:attribute name="head">
@@ -21,25 +21,25 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/bearbeiten/"/>">BenutzerprofilBearbeiten</a>
+            <a href="<c:url value="/bearbeiten/"/>">Benutzerprofil Bearbeiten</a>
         </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">
         <div class="container">
-            <form action="j_security_check" method="post" class="stacked">
+            <form method="post" class="stacked">
                 <div class="column">
                     <%-- CSRF-Token --%>
                     <input type="hidden" name="csrf_token" value="${csrf_token}">
                     
                     <%-- Eingabefelder --%>
-                   <h2>Logindaten</h2>
+                   <h2>Benutzerdaten</h2>
                     <label for="signup_username">
                         Benutzername:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="bearbeiten_username" value="${bearbeiten_form.values["signup_username"][0]}">
+                        <input type="text" name="bearbeiten_username" value="${bearbeiten_form.values["bearbeiten_username"][0]}">
                     </div>
 
                     <label for="signup_password1">
@@ -47,7 +47,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="bearbeiten_password1" value="${bearbeiten_form.values["signup_password1"][0]}">
+                        <input type="password" name="bearbeiten_password1" value="${bearbeiten_form.values["bearbeiten_password1"][0]}">
                     </div>
 
                     <label for="signup_newPassword">
@@ -55,7 +55,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="bearbeiten_newPassword" value="${bearbeiten_form.values["signup_newPassword"][0]}">
+                        <input type="password" name="bearbeiten_newPassword" value="${bearbeiten_form.values["bearbeiten_newPassword"][0]}">
                     </div>
                     
                     <label for="signup_newPassword2">
@@ -63,7 +63,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="bearbeiten_newPassword2" value="${bearbeiten_form.values["signup_newPassword2"][0]}">
+                        <input type="password" name="bearbeiten_newPassword2" value="${bearbeiten_form.values["bearbeiten_newPassword2"][0]}">
                     </div>
                     
                     <h2>Anschrift</h2>
@@ -102,7 +102,7 @@
 
                     <%-- Button zum Abschicken --%>
                     <button class="icon-login" type="submit">
-                        Einloggen
+                        Ändern
                     </button>
                 </div>
             </form>

@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet fÃ¼r die Registrierungsseite. Hier kann sich ein neuer Benutzer
- * registrieren. AnschlieÃŸend wird der auf die Startseite weitergeleitet.
+ * Servlet für die Registrierungsseite. Hier kann sich ein neuer Benutzer
+ * registrieren. Anschließend wird der auf die Startseite weitergeleitet.
  */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {

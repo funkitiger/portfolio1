@@ -32,8 +32,6 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
     @Resource
     EJBContext ctx;
 
-   
-
     public BenutzerBean() {
         super(Benutzer.class);
     }
@@ -64,44 +62,43 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", benutzername));
         }
 
-        Benutzer user = new Benutzer(benutzername, passwort, vorNachname, strasseHnr, plz, ort, email, telefonnr);
-        user.addToGroup("todo-app-user");
-        em.persist(user);
+        Benutzer benutzer = new Benutzer(benutzername, passwort, vorNachname, strasseHnr, plz, ort, email, telefonnr);
+        benutzer.addToGroup("todo-app-user");
+        em.persist(benutzer);
     }
 
     /**
      * Passwort ändern (ohne zu speichern)
-     * @param user
-     * @param oldPassword
-     * @param newPassword
+     * @param benutzer
+     * @param passwortAlt
+     * @param passwortNeu
      * @throws UserBean.InvalidCredentialsException
      */
     @RolesAllowed("todo-app-user")
-    public void changePassword(Benutzer user, String oldPassword, String newPassword) throws InvalidCredentialsException {
-        if (user == null || !user.checkPassword(oldPassword)) {
+    public void changePassword(Benutzer benutzer, String passwortAlt, String passwortNeu) throws InvalidCredentialsException {
+        if (benutzer == null || !benutzer.checkPassword(passwortAlt)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
         }
-
-        user.setPassword(newPassword);
+        benutzer.setPassword(passwortNeu);
     }
     
     /**
      * Benutzer löschen
-     * @param user Zu löschender Benutzer
+     * @param benutzer Zu löschender Benutzer
      */
     @RolesAllowed("todo-app-user")
-    public void delete(Benutzer user) {
-        this.em.remove(user);
+    public void delete(Benutzer benutzer) {
+        this.em.remove(benutzer);
     }
     
     /**
      * Benutzer aktualisieren
-     * @param user Zu aktualisierender Benutzer
+     * @param benutzer Zu aktualisierender Benutzer
      * @return Gespeicherter Benutzer
      */
     @RolesAllowed("todo-app-user")
-    public Benutzer update(Benutzer user) {
-        return em.merge(user);
+    public Benutzer update(Benutzer benutzer) {
+        return em.merge(benutzer);
     }
 
     /**
@@ -123,6 +120,19 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
         public InvalidCredentialsException(String message) {
             super(message);
         }
+    }
+    
+    public void datenBearbeiten(String benutzername, String password2, String vorNachname, String strasseHnr, String plz, String ort, String email, String telefonNr){
+        Benutzer benutzer = findById(benutzername);
+       
+        benutzer.setVorNachname(vorNachname);
+        benutzer.setStrasseHnr(strasseHnr);
+        benutzer.setPlz(plz);
+        benutzer.setOrt(ort);
+        benutzer.setEmail(email);
+        benutzer.setTelefonnr(telefonNr);
+        
+        em.merge(benutzer);
     }
 
 }
