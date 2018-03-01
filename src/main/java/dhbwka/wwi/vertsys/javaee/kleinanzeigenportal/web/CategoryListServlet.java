@@ -30,14 +30,14 @@ import javax.servlet.http.HttpSession;
  * Formular, mit dem ein neue Kategorie angelegt werden kann, sowie eine Liste,
  * die zum Löschen der Kategorien verwendet werden kann.
  */
-@WebServlet(urlPatterns = {"/app/categories/"})
+@WebServlet(urlPatterns = {"/app/kategorien/"})
 public class CategoryListServlet extends HttpServlet {
 
     @EJB
     KategorieBean categoryBean;
     
     @EJB
-    VerkaufsanzeigenBean taskBean;
+    VerkaufsanzeigenBean anzeigeBean;
 
     @EJB
     ValidationBean validationBean;
@@ -50,7 +50,7 @@ public class CategoryListServlet extends HttpServlet {
         request.setAttribute("categories", this.categoryBean.findAllSorted());
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/app/category_list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/app/kategorienBearbeiten.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
@@ -152,7 +152,7 @@ public class CategoryListServlet extends HttpServlet {
             // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
             category.getAnzeige().forEach((Verkaufsanzeige task) -> {
                 task.setKategorie(null);
-                this.taskBean.update(task);
+                this.anzeigeBean.update(task);
             });
             
             // Und weg damit
