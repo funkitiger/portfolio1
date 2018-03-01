@@ -136,6 +136,9 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
+        else {
+            anzeige.setKategorie(null); //Keine Kategorie ausgewählt
+        }
         try {
             anzeige.setPreisArt(PreisArt.valueOf(preisArt));
         } catch (IllegalArgumentException ex) {
@@ -261,7 +264,12 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         if (anzeige.getKategorie() != null) {
             values.put("kategorie", new String[]{
-                anzeige.getKategorie().toString()
+                Long.toString(anzeige.getKategorie().getId())
+            });
+        }
+        else {
+             values.put("kategorie", new String[]{
+                ""
             });
         }
 
