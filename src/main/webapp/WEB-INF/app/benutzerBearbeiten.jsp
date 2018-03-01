@@ -105,6 +105,14 @@
                         Ändern
                     </button>
                 </div>
+                <%-- Fehlermeldungen --%>
+                <c:if test="${!empty bearbeiten_form.errors}">
+                    <ul class="errors">
+                        <c:forEach items="${bearbeiten_form.errors}" var="error">
+                            <li>${error}</li>
+                            </c:forEach>
+                    </ul>
+                </c:if>    
             </form>
         </div>
     </jsp:attribute>

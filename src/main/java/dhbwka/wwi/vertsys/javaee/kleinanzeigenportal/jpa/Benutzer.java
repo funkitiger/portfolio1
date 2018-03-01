@@ -38,7 +38,6 @@ import javax.validation.constraints.Email;
  */
 @Data
 @Entity
-@Table(name = "JTODO_USER")
 public class Benutzer implements Serializable {
 
     private static final long serialVersionUID = 1L;

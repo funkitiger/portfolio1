@@ -10,6 +10,7 @@
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.ejb;
 
 import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa.Benutzer;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBContext;
@@ -42,7 +43,17 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
      * @return Eingeloggter Benutzer oder null
      */
     public Benutzer getCurrentUser() {
-        return this.em.find(Benutzer.class, this.ctx.getCallerPrincipal().getName());
+        String username = this.ctx.getCallerPrincipal().getName();
+        return this.em.find(Benutzer.class, username);
+    }
+    
+    public Benutzer getCurrentUser2() {
+        String username = this.ctx.getCallerPrincipal().getName();
+        List<Benutzer> users = this.em.createQuery("FROM Benutzer b WHERE b.benutzername = :username").setParameter("username", username).getResultList();
+        if(users.isEmpty())
+            return null;
+        else
+            return users.get(0);
     }
 
     /**
@@ -125,6 +136,8 @@ public class BenutzerBean extends EntityBean<Benutzer, String> {
     public void datenBearbeiten(String benutzername, String password2, String vorNachname, String strasseHnr, String plz, String ort, String email, String telefonNr){
         Benutzer benutzer = findById(benutzername);
        
+        benutzer.setBenutzername(benutzername);
+        benutzer.setPassword(password2);
         benutzer.setVorNachname(vorNachname);
         benutzer.setStrasseHnr(strasseHnr);
         benutzer.setPlz(plz);
