@@ -60,17 +60,22 @@ public class Benutzer implements Serializable {
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     private String passwordHash;
     @NotNull(message = "Der Name darf nicht leer sein.")
+    @Pattern(regexp = "\\w+", message = "Der Name darf nicht leer sein.")
     private String vorNachname;
     @NotNull(message = "Die Straße und Hausnummer darf nicht leer sein.")
+    @Pattern(regexp = "\\w+", message = "Die Straße und Hausnummer darf nicht leer sein.")
     private String strasseHnr;
-    @NotNull(message = "Die Postleitzahl darf muss einen Wert zwischen 10000 und 99999 sein.")
+    @NotNull(message = "Die Postleitzahl muss ein Wert zwischen 10000 und 99999 sein.")
+    @Pattern(regexp = "[1-9][0-9]?[0-9]?[a-z]?", message = "Die Postleitzahl muss ein Wert zwischen 10000 und 99999 sein." )
     private String plz;
     @NotNull(message = "Der Ort darf nicht leer sein.")
+    @Pattern(regexp = "\\w+", message = "Der Ort darf nicht leer sein.")
     private String ort;
     @Pattern(regexp = "^\\w+@\\w+\\..{2,3}(.{2,3})?$", message = "Bitte geben Sie eine gültige Mail ein.")
     //@Email
     private String email;
     @NotNull(message = "Die Telefonnummer darf nicht leer sein.")
+    @Pattern(regexp = "\\w+", message = "Die Telefonnummer darf nicht leer sein.")
     private String telefonnr;
 
     @ElementCollection
