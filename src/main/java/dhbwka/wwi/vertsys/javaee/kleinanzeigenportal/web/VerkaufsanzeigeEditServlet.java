@@ -38,7 +38,7 @@ import javax.servlet.http.HttpSession;
 public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
     @EJB
-    VerkaufsanzeigenBean taskBean;
+    VerkaufsanzeigenBean anzeigeBean;
 
     @EJB
     KategorieBean categoryBean;
@@ -55,9 +55,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("kategorien", this.categoryBean.findAllSorted());
-
         request.setAttribute("angebotArten", AngebotArt.values());
-
         request.setAttribute("preisArten", PreisArt.values());
 
         // Zu bearbeitende Anzeige einlesen
@@ -65,6 +63,8 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
         request.setAttribute("edit", anzeige.getId() != 0);
+        request.setAttribute("user", anzeige.getOwner());
+        //TODO: other_user
 
         if (session.getAttribute("verkaufsanzeige_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
@@ -93,7 +93,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         switch (action) {
             case "save":
-                this.saveTask(request, response);
+                this.saveAnzeige(request, response);
                 break;
             case "delete":
                 this.deleteTask(request, response);
@@ -109,26 +109,20 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    private void saveTask(HttpServletRequest request, HttpServletResponse response)
+    private void saveAnzeige(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
 
         String kategorie = request.getParameter("category");
-        AngebotArt angebotArt = AngebotArt.valueOf(request.getParameter("angebotArt"));
+        String angebotArt = request.getParameter("angebotArt");
         String bezeichnung = request.getParameter("bezeichnung");
         String beschreibung = request.getParameter("beschreibung");
-        PreisArt preisArt = PreisArt.valueOf(request.getParameter("preisArt"));
-        double preis = 0.0;
-        try {
-            preis = Double.parseDouble(request.getParameter("preis"));
-        } catch (NumberFormatException ex) {
-            errors.add("Bitte geben Sie einen Preis an");
-        }
+        String preisArt = request.getParameter("preisArt");
+        String preis = request.getParameter("preis");
 
-        //Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
-        Verkaufsanzeige anzeige = new Verkaufsanzeige();
+        Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
 
         if (kategorie != null && !kategorie.trim().isEmpty()) {
             try {
@@ -137,22 +131,38 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
+        try {
+            anzeige.setPreisArt(PreisArt.valueOf(preisArt));
+        } catch (IllegalArgumentException ex) {
+            errors.add("Die ausgewählte Art des Preises ist nicht vorhanden.");
+        }
+        try {
+            anzeige.setAngebotArt(AngebotArt.valueOf(angebotArt));
+        } catch (IllegalArgumentException ex) {
+            errors.add("Die ausgewählte Art des Angebots ist nicht vorhanden.");
+        }
 
-        anzeige.setAngebotArt(angebotArt);
+        if (preis != null && !preis.trim().isEmpty()) {
+            try {
+                anzeige.setPreis(Double.parseDouble(preis));
+            } catch (NumberFormatException ex) {
+                errors.add("Bitte geben Sie einen Preis an");
+            }
+        }
+
         anzeige.setBezeichnung(bezeichnung);
         anzeige.setBeschreibung(beschreibung);
-        anzeige.setPreisArt(preisArt);
-        anzeige.setPreis(preis);
 
         Date aktuellesDatum = new Date(System.currentTimeMillis());
-        //TODO: auch Time? oder reicht Date?
+        Time aktuelleZeit = new Time(System.currentTimeMillis());
         anzeige.setErstellungsdatum(aktuellesDatum);
+        anzeige.setErstellungszeit(aktuelleZeit);
 
         this.validationBean.validate(anzeige, errors);
 
         // Datensatz speichern
         if (errors.isEmpty()) {
-            this.taskBean.update(anzeige);
+            this.anzeigeBean.update(anzeige);
         }
 
         // Weiter zur nächsten Seite
@@ -185,7 +195,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         // Datensatz löschen
         Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
-        this.taskBean.delete(anzeige);
+        this.anzeigeBean.delete(anzeige);
 
         // Zurück zur Übersicht
         response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
@@ -206,7 +216,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
         anzeige.setPreisArt(PreisArt.VERHANDLUNGSBASIS); //Standardwert 
         anzeige.setOwner(this.userBean.getCurrentUser());
         anzeige.setErstellungsdatum(new Date(System.currentTimeMillis()));
-        //   task.setDueTime(new Time(System.currentTimeMillis()));
+        anzeige.setErstellungszeit(new Time(System.currentTimeMillis()));
 
         // ID aus der URL herausschneiden
         String anzeigeId = request.getPathInfo();
@@ -223,7 +233,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         // Versuchen, den Datensatz mit der übergebenen ID zu finden
         try {
-            anzeige = this.taskBean.findById(Long.parseLong(anzeigeId));
+            anzeige = this.anzeigeBean.findById(Long.parseLong(anzeigeId));
         } catch (NumberFormatException ex) {
             // Ungültige oder keine ID in der URL enthalten
         }
@@ -246,13 +256,9 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         if (anzeige.getKategorie() != null) {
             values.put("kategorie", new String[]{
-                Double.toString(anzeige.getKategorie().getId())
+                anzeige.getKategorie().toString()
             });
         }
-
-        values.put("angebotArt", new String[]{
-            anzeige.getAngebotArt().toString()
-        });
 
         values.put("bezeichnung", new String[]{
             anzeige.getBezeichnung()
@@ -261,30 +267,20 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
         values.put("beschreibung", new String[]{
             anzeige.getBeschreibung()
         });
-
         values.put("preis", new String[]{
             Double.toString(anzeige.getPreis())
         });
         values.put("erstellungsdatum", new String[]{
-            anzeige.getErstellungsdatum().toString()
+            WebUtils.formatDate(anzeige.getErstellungsdatum())
         });
-        values.put("vorNachname", new String[]{
-            anzeige.getOwner().getVorNachname()}
-        );
-        values.put("strasseHausnr", new String[]{
-            anzeige.getOwner().getStrasseHnr()
+        values.put("erstellungszeit", new String[]{
+           WebUtils.formatTime(anzeige.getErstellungszeit())
         });
-        values.put("plz", new String[]{
-            anzeige.getOwner().getPlz()
+        values.put("preisArt", new String[]{
+            anzeige.getPreisArt() + ""
         });
-        values.put("ort", new String[]{
-            anzeige.getOwner().getOrt()
-        });
-        values.put("telefonnr", new String[]{
-            anzeige.getOwner().getTelefonnr()
-        });
-        values.put("email", new String[]{
-            anzeige.getOwner().getEmail()
+        values.put("angebotArt", new String[]{
+            anzeige.getAngebotArt() + ""
         });
 
         FormValues formValues = new FormValues();

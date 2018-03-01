@@ -64,7 +64,6 @@ public class Benutzer implements Serializable {
     private String vorNachname;
     @NotNull(message = "Die StraÃŸe und Hausnunmmer darf nicht leer sein.")
     private String strasseHnr;
-    // @Size(max = 99999, min = 10000)
     @NotNull(message = "Die Postleitzahl darf muss einen Wert zwischen 10000 und 99999 sein.")
     private String plz;
     @NotNull(message = "Der Ort darf nicht leer sein.")

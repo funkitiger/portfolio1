@@ -10,5 +10,16 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa;
  * 
  */
 public enum PreisArt {
-    FESTPREIS, VERHANDLUNGSBASIS
+    FESTPREIS, VERHANDLUNGSBASIS;
+    
+    public String getLabel() {
+        switch(this) {
+            case FESTPREIS:
+                return "Festpreis";
+            case VERHANDLUNGSBASIS:
+                return "Verhandlungsbasis";
+            default:
+                return this.toString();
+        }
+    }
 }

@@ -7,8 +7,19 @@ package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa;
 
 /**
  *
- * 
+ *
  */
 public enum AngebotArt {
-    BIETE, SUCHE
+    BIETE, SUCHE;
+
+    public String getLabel() {
+        switch(this) {
+            case BIETE:
+                return "Biete";
+            case SUCHE:
+                return "Suche";
+            default:
+                return this.toString();
+        }
+    }
 }

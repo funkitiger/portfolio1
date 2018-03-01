@@ -45,6 +45,7 @@
                 <label for="category">Kategorie:</label>
                 <div class="side-by-side">
                     <select name="category">
+                        <option value="">Keine Kategorie</option>
 
                         <c:forEach items="${kategorien}" var="kategorie">
                             <option value="${kategorie.id}" ${verkaufsanzeige_form.values["kategorie"][0] == kategorie.id ? 'selected' : ''}>
@@ -60,6 +61,7 @@
                     <select name="angebotArt">
                         <c:forEach items="${angebotArten}" var="angebotArt">
                             <option value="${angebotArt}" ${verkaufsanzeige_form.values["angebotArt"][0] == angebotArt ? 'selected' : ''}>
+                                <c:out value="${angebotArt.label}" />
                             </option>
                         </c:forEach>
                     </select>
@@ -82,6 +84,7 @@
                     <select name="preisArt">
                         <c:forEach items="${preisArten}" var="preisArt">
                             <option value="${preisArt}" ${verkaufsanzeige_form.values["preisArt"][0] == preisArt ? 'selected' : ''}>
+                                <c:out value="${preisArt.label}" />
                             </option>
                         </c:forEach>
                     </select>
@@ -91,17 +94,17 @@
                     Angelegt am:
                 </label>
                 <div class="side-by-side">
-                    ${verkaufsanzeige_form.values['erstellungsdatum'][0]}
+                    ${verkaufsanzeige_form.values['erstellungsdatum'][0]} ${verkaufsanzeige_form.values['erstellungszeit'][0]}
                 </div>
                 <label for="anbieter">
                     Anbieter:
                 </label>
                 <div class="side-by-side">
-                    ${verkaufsanzeige_form.values['vorNachname'][0]} <br />
-                    ${verkaufsanzeige_form.values['strasseHausnr'][0]} <br />
-                    ${verkaufsanzeige_form.values['plz'][0]} ${verkaufsanzeige_form.values['ort'][0]} <br />
-                    ${verkaufsanzeige_form.values['telefonnr'][0]} <br/> 
-                    ${verkaufsanzeige_form.values['email'][0]} 
+                    ${user.vorNachname} <br />
+                    ${user.strasseHnr} <br />
+                    ${user.plz} ${user.ort} <br />
+                    ${user.telefonnr} <br/> 
+                    ${user.email} 
                 </div>
                 
               <%-- Button zum Abschicken --%>
@@ -119,9 +122,9 @@
             </div>
 
             <%-- Fehlermeldungen --%>
-            <c:if test="${!empty task_form.errors}">
+            <c:if test="${!empty verkaufsanzeige_form.errors}">
                 <ul class="errors">
-                    <c:forEach items="${task_form.errors}" var="error">
+                    <c:forEach items="${verkaufsanzeige_form.errors}" var="error">
                         <li>${error}</li>
                         </c:forEach>
                 </ul>

@@ -101,13 +101,13 @@
                                 <c:out value="${anzeige.owner.vorNachname}"/>
                             </td>
                             <td>
-                                <c:out value="${anzeige.angebotArt}"/>
+                                <c:out value="${anzeige.angebotArt.label}"/>
                             </td>
                             <td>
-                                <c:out value="${anzeige.preis}"/>
+                                <c:out value="${utils.formatDouble(anzeige.preis)}"/>
                             </td>
                             <td>
-                                <c:out value="${anzeige.preisArt}"/>
+                                <c:out value="${anzeige.preisArt.label}"/>
                             </td>
                             <td>
                                 <c:out value="${utils.formatDate(anzeige.erstellungsdatum)}" />

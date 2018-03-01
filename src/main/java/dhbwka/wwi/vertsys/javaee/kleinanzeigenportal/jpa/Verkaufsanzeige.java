@@ -9,8 +9,10 @@
  */
 package dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.jpa;
 
+import dhbwka.wwi.vertsys.javaee.kleinanzeigenportal.web.WebUtils;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,26 +55,26 @@ public class Verkaufsanzeige implements Serializable {
     private String beschreibung;
 
     private AngebotArt angebotArt;
-    
+
     private Date erstellungsdatum;
-    
+    @NotNull(message = "Die Zeit darf nicht leer sein.")
+    private Time erstellungszeit;
+
     private PreisArt preisArt;
-    
+
     private double preis;
-
-
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Verkaufsanzeige() {
     }
 
-    public Verkaufsanzeige(Benutzer owner, Kategorie category, String bezeichnung, String beschreibung, Date erstellungsdatum) {
+    public Verkaufsanzeige(Benutzer owner, Kategorie category, String bezeichnung, String beschreibung, Date erstellungsdatum, Time erstellungszeit) {
         this.owner = owner;
         this.kategorie = category;
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.erstellungsdatum = erstellungsdatum;
+        this.erstellungszeit = erstellungszeit;
     }
-   
 
 }
