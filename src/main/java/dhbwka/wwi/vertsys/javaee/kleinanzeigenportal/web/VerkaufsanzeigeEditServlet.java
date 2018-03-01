@@ -64,12 +64,10 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
         Verkaufsanzeige anzeige = this.getRequestedAnzeige(request);
         request.setAttribute("edit", anzeige.getId() != 0);
         request.setAttribute("user", anzeige.getOwner());
-        if(!userBean.getCurrentUser().getBenutzername().equals(anzeige.getOwner().getBenutzername()))
-        {
+        if (!userBean.getCurrentUser().getBenutzername().equals(anzeige.getOwner().getBenutzername())) {
             request.setAttribute("readonly", "readonly = readonly");
             request.setAttribute("disabled", "disabled=disabled");
         }
-        
 
         if (session.getAttribute("verkaufsanzeige_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
@@ -98,7 +96,9 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
 
         switch (action) {
             case "save":
-                this.saveAnzeige(request, response);
+                if (userBean.getCurrentUser().getBenutzername().equals(getRequestedAnzeige(request).getOwner().getBenutzername())) { //aktueller Benutzer ist auch Eigentümer -> kann saveAnzeige ausführen
+                    this.saveAnzeige(request, response);
+                }
                 break;
             case "delete":
                 this.deleteTask(request, response);
@@ -135,8 +135,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
-        }
-        else {
+        } else {
             anzeige.setKategorie(null); //Keine Kategorie ausgewählt
         }
         try {
@@ -206,7 +205,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
         this.anzeigeBean.delete(anzeige);
 
         // Zurück zur Übersicht
-        response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
+        response.sendRedirect(WebUtils.appUrl(request, "/app/uebersicht/"));
     }
 
     /**
@@ -266,9 +265,8 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
             values.put("kategorie", new String[]{
                 Long.toString(anzeige.getKategorie().getId())
             });
-        }
-        else {
-             values.put("kategorie", new String[]{
+        } else {
+            values.put("kategorie", new String[]{
                 ""
             });
         }
@@ -287,7 +285,7 @@ public class VerkaufsanzeigeEditServlet extends HttpServlet {
             WebUtils.formatDate(anzeige.getErstellungsdatum())
         });
         values.put("erstellungszeit", new String[]{
-           WebUtils.formatTime(anzeige.getErstellungszeit())
+            WebUtils.formatTime(anzeige.getErstellungszeit())
         });
         values.put("preisArt", new String[]{
             anzeige.getPreisArt() + ""
